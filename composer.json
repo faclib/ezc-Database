@@ -1,0 +1,16 @@
+{
+    "name": "fobiaweb/ezc-database",
+    "type": "library",
+    "homepage": "http://ezcomponents.org",
+    "require": {
+        "php": ">=5.3.0",
+        "fobiaweb/ezc-base": "1.*"
+    },
+    "suggest": {
+        "pear-components.ez.no/database": "1.4.7"
+    },
+    "autoload": {
+        "classmap": [ "src/" ]
+    },
+    "minimum-stability": "dev"
+}
