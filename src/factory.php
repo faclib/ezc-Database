@@ -353,4 +353,3 @@ class ezcDbFactory
         return $parsed;
     }
 }
-?>
