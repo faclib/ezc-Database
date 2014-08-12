@@ -12,5 +12,5 @@ $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 $db = new ezcDbWrapperMysql($pdo);
 
 ezcDbInstance::set( $db, 'wrapper' );
-ezcDbInstance::chooseDefault('wrapper');
+
 

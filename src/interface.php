@@ -18,7 +18,7 @@ interface ezcDbInterface
     public function commit();
 
     public function rollback();
-    
+
     public function createSelectQuery();
 
     public function createUpdateQuery();
@@ -35,14 +35,21 @@ interface ezcDbInterface
 
 }
 
-interface ezcDbPDOInterface
-{
-    public function exec($statement);
+// interface ezcDbPDOInterface
+// {
+    // public function exec($statement);
+    // public function query($statement);
 
-    public function query($statement);
+    // public function quote($string, $parameter_type = \PDO::PARAM_STR);
 
-    public function quote($string, $parameter_type = \PDO::PARAM_STR);
+    // public function prepare($statement, array $driver_options = array());
 
-    public function prepare($statement, array $driver_options = array());
-}
+    // public function errorCode();
+    // public function errorInfo();
+    // public function getAttribute(  $attribute );
+    // public function getAvailableDrivers();
+    // public function inTransaction();
+    // public function lastInsertId( $name = NULL );
+    // public function setAttribute( $attribute , $value );
+// }
 

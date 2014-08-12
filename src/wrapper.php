@@ -11,7 +11,7 @@
  *
  * @package
  */
-class ezcDbWrapper implements ezcDbInterface, ezcDbPDOInterface
+class ezcDbWrapper implements ezcDbInterface
 {
     /**
      * Stores the transaction nesting level.
@@ -68,24 +68,38 @@ class ezcDbWrapper implements ezcDbInterface, ezcDbPDOInterface
         return $this->db;
     }
 
-    public function exec($statement)
+
+    public function __call($name, $args)
     {
-        return $this->db->exec($statement);
+        switch ($name) {
+            case 'exec':
+            case 'query':
+            case 'quote':
+            case 'prepare':
+            case 'errorCode':
+            case 'errorInfo':
+            case 'getAttribute':
+            case 'getAvailableDrivers':
+            case 'inTransaction':
+            case 'lastInsertId':
+            case 'setAttribute':
+                return $this->dispatchMethod($name, $args);
+            default:
+                return $this->dispatchMethod($name, $args);
+                break;
+        }
     }
 
-    public function query($statement)
-    {
-        return $this->db->query($statement);
-    }
 
-    public function quote($string, $parameter_type = \PDO::PARAM_STR)
+    protected function dispatchMethod($method, array $p = null)
     {
-        return $this->db->quote( $string, $parameter_type );
-    }
-
-    public function prepare($statement, array $driver_options = array())
-    {
-        return $this->db->prepare($statement, $driver_options);
+        switch (@count($p)) {
+            case 0: return $this->db->{$method}();
+            case 1: return $this->db->{$method}($p[0]);
+            case 2: return $this->db->{$method}($p[0], $p[1]);
+            case 3: return $this->db->{$method}($p[0], $p[1], $p[2]);
+            default: return call_user_func_array(array($this->db, $method), $p);
+        }
     }
 
     /**
