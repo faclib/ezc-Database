@@ -72,8 +72,8 @@ class ezcQueryExpression
         if ($db instanceof ezcDbInterface) {
             $db = $db->getDb();
         }
-
         $this->_setDb($db);
+
         if ( !empty( $aliases ) )
         {
             $this->aliases = $aliases;

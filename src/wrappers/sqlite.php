@@ -29,12 +29,6 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      */
     public function __construct( $dbParams, array $options = array() )
     {
-        if (is_array($dbParams)) {
-            if (isset($dbParams['pdo']) && ($dbParams['pdo'] instanceof PDO)) {
-                $db = $dbParams['pdo'];
-            }
-            $options = array_merge((array) @$dbParams['params'], $options);
-        }
         if ($dbParams instanceof PDO) {
              parent::__construct($dbParams);
              return;

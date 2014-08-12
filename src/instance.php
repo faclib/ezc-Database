@@ -80,7 +80,7 @@ class ezcDbInstance
      *
      * @throws ezcDbHandlerNotFoundException if the specified instance is not found.
      * @param string $identifier
-     * @return ezcDbHandler
+     * @return ezcDbInterface
      */
     public static function get( $identifier = false )
     {
@@ -92,7 +92,7 @@ class ezcDbInstance
         if ( !isset( self::$Instances[$identifier] ) )
         {
             // The DatabaseInstanceFetchConfig callback should return an
-            // ezcDbHandler object which will then be set as instance.
+            // ezcDbInterface object which will then be set as instance.
             $ret = ezcBaseInit::fetchConfig( 'ezcInitDatabaseInstance', $identifier );
             if ( $ret === null )
             {
@@ -123,7 +123,7 @@ class ezcDbInstance
      * If $identifier is specified the database instance can be
      * retrieved later using the same identifier.
      *
-     * @param ezcDbHandler $db
+     * @param ezcDbInterface $db
      * @param string $identifier the identifier of the database handler
      * @return void
      */
