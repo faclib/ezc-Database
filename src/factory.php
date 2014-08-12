@@ -59,7 +59,8 @@ class ezcDbFactory
                                              'pgsql'  => 'ezcDbHandlerPgsql',
                                              'oracle' => 'ezcDbHandlerOracle',
                                              'sqlite' => 'ezcDbHandlerSqlite',
-                                             'mssql' => 'ezcDbHandlerMssql', );
+                                             'mssql' => 'ezcDbHandlerMssql',
+                                            );
 
     /**
      * Adds a database implementation to the list of known implementations.
@@ -160,6 +161,24 @@ class ezcDbFactory
 
         $className = self::$implementations[$impName];
         $instance = new $className( $dbParams );
+
+        return $instance;
+    }
+
+    /**
+     * @param   PDO|ezcDbHandler  $db
+     * @return  ezcDbWrapper
+     */
+    static public function wrapper( $db )
+    {
+        if (( $db instanceof ezcDbHandler) || ( $db instanceof ezcDbWrapper)) {
+            return $db;
+        }
+
+        $impName = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+        $className = 'ezcDbWrapper' . strtoupper(substr($impName, 0, 1)) . substr($impName, 1);
+        $instance = new $className( $db );
 
         return $instance;
     }

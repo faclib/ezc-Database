@@ -17,17 +17,10 @@
 class ezcDbWrapperPgsql extends ezcDbWrapper
 {
     /**
-     * Constructs a handler object from the parameters $dbParams.
-     *
-     * Supported database parameters are:
-     * - dbname|database: Database name
-     * - user|username:   Database user name
-     * - pass|password:   Database user password
-     * - host|hostspec:   Name of the host database is running on
-     * - port:            TCP port
+     * Constructs a handler object from the parameters $db.
      *
      * @throws ezcDbMissingParameterException if the database name was not specified.
-     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @param  PDO $db Database connection .
      */
     public function __construct( $db )
     {

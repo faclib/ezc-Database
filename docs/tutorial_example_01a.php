@@ -10,6 +10,14 @@ $db = ezcDbInstance::get();
 // print_r($res);
 //
 $pdo = new PDO('sqlite::memory:');
+
+$db = ezcDbFactory::wrapper($pdo);
+print_r($db->getName());
+
+
+$db = ezcDbFactory::wrapper(ezcDbInstance::get());
+print_r($db->getName());
+
 // $db = new ezcDbWrapperMysql($pdo);
 // $res = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 

@@ -24,16 +24,9 @@ class ezcDbWrapperMssql extends ezcDbWrapper
     public $options;
 
     /**
-     * Constructs a handler object from the parameters $dbParams.
+     * Constructs a handler object from the parameters $db.
      *
-     * Supported database parameters are:
-     * - dbname|database: Database name
-     * - host|hostspec:   Name of the host database is running on
-     * - port:            TCP port
-     * - user|username:   Database user name
-     * - pass|password:   Database user password
-     *
-     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @param PDO $db Database connection .
      * @throws ezcDbMissingParameterException if the database name was not specified.
      */
     public function __construct( PDO $db )
@@ -42,7 +35,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
         parent::__construct( $db );
 
         // setup options
-        $this->setOptions( new ezcDbMssqlOptions() );
+        // $this->setOptions( new ezcDbMssqlOptions() );
     }
 
     /**

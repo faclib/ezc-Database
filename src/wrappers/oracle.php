@@ -18,15 +18,9 @@
 class ezcDbWrapperOracle extends ezcDbWrapper
 {
     /**
-     * Constructs a handler object from the parameters $dbParams.
+     * Constructs a handler object from the parameters $db.
      *
-     * Supported database parameters are:
-     * - dbname|database: Database name
-     * - user|username:   Database user name
-     * - pass|password:   Database user password
-     * - charset:         Client character set
-     *
-     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @param PDO $db Database connection .
      * @throws ezcDbMissingParameterException if the database name was not specified.
      */
     public function __construct( $db )
