@@ -16,18 +16,7 @@
  */
 class ezcDbWrapperPgsql extends ezcDbWrapper
 {
-    /**
-     * Constructs a handler object from the parameters $db.
-     *
-     * @throws ezcDbMissingParameterException if the database name was not specified.
-     * @param  PDO $db Database connection .
-     */
-    public function __construct( $db )
-    {
-        parent::__construct( $db );
-    }
-
-    /**
+     /**
      * Constructs a handler object from the parameters $dbParams.
      *
      * Supported database parameters are:
@@ -40,8 +29,13 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
      * @throws ezcDbMissingParameterException if the database name was not specified.
      * @param array $dbParams Database connection parameters (key=>value pairs).
      */
-    public function createPDO( $dbParams )
+    public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = null;
         $charset  = null;
         $host     = null;

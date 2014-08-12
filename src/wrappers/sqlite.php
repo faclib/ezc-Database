@@ -16,30 +16,7 @@
  */
 class ezcDbWrapperSqlite extends ezcDbWrapper
 {
-    /**
-     * Constructs a handler object from the parameters $db.
-     *
-     * @throws ezcDbMissingParameterException if the database name was not specified.
-     * @param  PDO $db Database connection parameters .
-     */
-    public function __construct( $db )
-    {
-        parent::__construct( $db );
-
-        /* Register PHP implementations of missing functions in SQLite */
-        /*
-        $this->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );
-        $this->sqliteCreateFunction( 'mod', array( 'ezcQuerySqliteFunctions', 'modImpl' ), 2 );
-        $this->sqliteCreateFunction( 'locate', array( 'ezcQuerySqliteFunctions', 'positionImpl' ), 2 );
-        $this->sqliteCreateFunction( 'floor', array( 'ezcQuerySqliteFunctions', 'floorImpl' ), 1 );
-        $this->sqliteCreateFunction( 'ceil', array( 'ezcQuerySqliteFunctions', 'ceilImpl' ), 1 );
-        $this->sqliteCreateFunction( 'concat', array( 'ezcQuerySqliteFunctions', 'concatImpl' ) );
-        $this->sqliteCreateFunction( 'toUnixTimestamp', array( 'ezcQuerySqliteFunctions', 'toUnixTimestampImpl' ), 1 );
-        $this->sqliteCreateFunction( 'now', 'time', 0 );
-        /* */
-    }
-
-    /**
+   /**
      * Constructs a handler object from the parameters $dbParams.
      *
      * Supported database parameters are:
@@ -50,8 +27,13 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      * @throws ezcDbMissingParameterException if the database name was not specified.
      * @param array $dbParams Database connection parameters (key=>value pairs).
      */
-    public function createPDO( $dbParams )
+    public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = false;
 
         foreach ( $dbParams as $key => $val )
@@ -85,17 +67,17 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
             $dsn = "sqlite:$database";
         }
 
-        $db = parent::createPDO( $dbParams, $dsn );
+        pparent::createPDO( $dbParams, $dsn );
 
         /* Register PHP implementations of missing functions in SQLite */
-        $db->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );
-        $db->sqliteCreateFunction( 'mod', array( 'ezcQuerySqliteFunctions', 'modImpl' ), 2 );
-        $db->sqliteCreateFunction( 'locate', array( 'ezcQuerySqliteFunctions', 'positionImpl' ), 2 );
-        $db->sqliteCreateFunction( 'floor', array( 'ezcQuerySqliteFunctions', 'floorImpl' ), 1 );
-        $db->sqliteCreateFunction( 'ceil', array( 'ezcQuerySqliteFunctions', 'ceilImpl' ), 1 );
-        $db->sqliteCreateFunction( 'concat', array( 'ezcQuerySqliteFunctions', 'concatImpl' ) );
-        $db->sqliteCreateFunction( 'toUnixTimestamp', array( 'ezcQuerySqliteFunctions', 'toUnixTimestampImpl' ), 1 );
-        $dbs->sqliteCreateFunction( 'now', 'time', 0 );
+        $this->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );
+        $this->sqliteCreateFunction( 'mod', array( 'ezcQuerySqliteFunctions', 'modImpl' ), 2 );
+        $this->sqliteCreateFunction( 'locate', array( 'ezcQuerySqliteFunctions', 'positionImpl' ), 2 );
+        $this->sqliteCreateFunction( 'floor', array( 'ezcQuerySqliteFunctions', 'floorImpl' ), 1 );
+        $this->sqliteCreateFunction( 'ceil', array( 'ezcQuerySqliteFunctions', 'ceilImpl' ), 1 );
+        $this->sqliteCreateFunction( 'concat', array( 'ezcQuerySqliteFunctions', 'concatImpl' ) );
+        $this->sqliteCreateFunction( 'toUnixTimestamp', array( 'ezcQuerySqliteFunctions', 'toUnixTimestampImpl' ), 1 );
+        $this->sqliteCreateFunction( 'now', 'time', 0 );
     }
 
 

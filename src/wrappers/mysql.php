@@ -29,16 +29,6 @@ class ezcDbWrapperMysql extends ezcDbWrapper
         "end"   => '`',
     );
 
-    /**
-     * Constructs a handler object from the parameters $db.
-     *
-     * @throws ezcDbMissingParameterException if the database name was not specified.
-     * @param  PDO $db Database connection parameters.
-     */
-    public function __construct( $db )
-    {
-        parent::__construct( $db );
-    }
 
     /**
      * Constructs a handler object from the parameters $dbParams.
@@ -55,8 +45,13 @@ class ezcDbWrapperMysql extends ezcDbWrapper
      * @throws ezcDbMissingParameterException if the database name was not specified.
      * @param array $dbParams Database connection parameters (key=>value pairs).
      */
-    protected function createPDO($dbParams, $dsn)
+    public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = null;
         $charset  = null;
         $host     = null;
@@ -118,10 +113,8 @@ class ezcDbWrapperMysql extends ezcDbWrapper
             $dsn .= ";unix_socket=$socket";
         }
 
-        return parent::createPDO($dbParams, $dsn);
+        parent::createPDO( $dbParams, $dsn );
     }
-
-
 
     /**
      * Returns 'mysql'.
