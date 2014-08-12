@@ -3,6 +3,7 @@ $files = array(
     __DIR__ . '/../vendor/autoload.php',
     __DIR__ . '/../../vendor/autoload.php',
     __DIR__ . '/../../../vendor/autoload.php',
+    __DIR__ . '/../src/autoload.php'
 );
 
 foreach ($files as $file) {
@@ -15,7 +16,7 @@ foreach ($files as $file) {
 if (!class_exists('ezcBase')) {
     $dir = dirname( __FILE__ );
     $dirParts = explode( DIRECTORY_SEPARATOR, $dir );
-    
+
     switch ( $dirParts[count( $dirParts ) - 1] )
     {
         case 'docs': require_once 'ezc/Base/base.php'; break; // pear

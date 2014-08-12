@@ -1,6 +1,6 @@
 <?php
 
-
+$time = microtime(true);
 
 for ($i=1; $i <= 9; $i++) {
     echo "tutorial_example_0{$i}:\n";
@@ -9,3 +9,6 @@ for ($i=1; $i <= 9; $i++) {
 
     echo "\n----------------------------------\n\n";
 }
+
+
+echo "Time: " . round(microtime(true) - $time, 5);
