@@ -46,7 +46,7 @@ class ezcDbWrapperMysql extends ezcDbWrapper
      */
     public function __construct( $db )
     {
-        parent::__construct( $db, $dsn );
+        parent::__construct( $db );
     }
 
     /**

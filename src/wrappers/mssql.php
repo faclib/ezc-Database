@@ -39,7 +39,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
     public function __construct( PDO $db )
     {
 
-        parent::__construct( $db, $dsn );
+        parent::__construct( $db );
 
         // setup options
         $this->setOptions( new ezcDbMssqlOptions() );
@@ -65,7 +65,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
         $requiredMode = $this->options->quoteIdentifier;
         if ( $requiredMode == ezcDbMssqlOptions::QUOTES_GUESS )
         {
-            $result = parent::query( "SELECT sessionproperty('QUOTED_IDENTIFIER')" );
+            $result = $this->db->query( "SELECT sessionproperty('QUOTED_IDENTIFIER')" );
             $rows = $result->fetchAll();
             $mode = (int)$rows[0][0];
             if ( $mode == 0 )
@@ -79,12 +79,12 @@ class ezcDbWrapperMssql extends ezcDbWrapper
         }
         else if ( $requiredMode == ezcDbMssqlOptions::QUOTES_COMPLIANT )
         {
-            parent::exec( 'SET QUOTED_IDENTIFIER ON' );
+            $this->db->exec( 'SET QUOTED_IDENTIFIER ON' );
             $this->identifierQuoteChars = array( 'start' => '"', 'end' => '"' );
         }
         else if ( $requiredMode == ezcDbMssqlOptions::QUOTES_LEGACY )
         {
-            parent::exec( 'SET QUOTED_IDENTIFIER OFF' );
+            $this->db->exec( 'SET QUOTED_IDENTIFIER OFF' );
             $this->identifierQuoteChars = array( 'start' => '[', 'end' => ']' );
         }
     }
@@ -97,7 +97,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionMssql( $this );
+        return new ezcQueryExpressionMssql( $this->getDb()  );
     }
 
     /**
@@ -138,7 +138,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
         $retval = true;
         if ( $this->transactionNestingLevel == 0 )
         {
-            $retval = $this->exec( "BEGIN TRANSACTION" );
+            $retval = $this->db->exec( "BEGIN TRANSACTION" );
         }
         // else NOP
 
@@ -175,13 +175,13 @@ class ezcDbWrapperMssql extends ezcDbWrapper
         {
             if ( $this->transactionErrorFlag )
             {
-                $this->exec( "ROLLBACK TRANSACTION" );
+                $this->db->exec( "ROLLBACK TRANSACTION" );
                 $this->transactionErrorFlag = false; // reset error flag
                 $retval = false;
             }
             else
             {
-                $this->exec( "COMMIT TRANSACTION" );
+                $this->db->exec( "COMMIT TRANSACTION" );
             }
         }
         // else NOP
@@ -214,7 +214,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
 
         if ( $this->transactionNestingLevel == 1 )
         {
-            $this->exec( "ROLLBACK TRANSACTION" );
+            $this->db->exec( "ROLLBACK TRANSACTION" );
             $this->transactionErrorFlag = false; // reset error flag
         }
         else

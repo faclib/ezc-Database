@@ -31,7 +31,7 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
      */
     public function __construct( $db )
     {
-        parent::__construct( $db, $dsn );
+        parent::__construct( $db );
     }
 
     /**
@@ -51,7 +51,7 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionPgsql( $this );
+        return new ezcQueryExpressionPgsql( $this->getDb() );
     }
 
     /**

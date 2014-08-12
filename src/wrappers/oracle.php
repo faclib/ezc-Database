@@ -31,7 +31,7 @@ class ezcDbWrapperOracle extends ezcDbWrapper
      */
     public function __construct( $db )
     {
-        parent::__construct( $db, $dsn );
+        parent::__construct( $db );
     }
 
     /**
@@ -61,7 +61,7 @@ class ezcDbWrapperOracle extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionOracle( $this );
+        return new ezcQueryExpressionOracle( $this->getDb()  );
     }
 
     /**

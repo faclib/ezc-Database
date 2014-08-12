@@ -29,7 +29,7 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      */
     public function __construct( $db )
     {
-        parent::__construct( $db, $dsn );
+        parent::__construct( $db );
 
         /* Register PHP implementations of missing functions in SQLite */
         /*
@@ -85,7 +85,7 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionSqlite( $this );
+        return new ezcQueryExpressionSqlite( $this->getDb() );
     }
 
     /**
