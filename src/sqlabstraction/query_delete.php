@@ -60,7 +60,7 @@ class ezcQueryDelete extends ezcQuery
      * @param PDO $db
      * @param array(string=>string) $aliases
      */
-    public function __construct( PDO $db, array $aliases = array() )
+    public function __construct( $db, array $aliases = array() )
     {
         parent::__construct( $db, $aliases );
     }
@@ -84,7 +84,7 @@ class ezcQueryDelete extends ezcQuery
      *
      * where() accepts an arbitrary number of parameters. Each parameter
      * must contain a logical expression or an array with logical expressions.
-     * where() could be invoked several times. All provided arguments 
+     * where() could be invoked several times. All provided arguments
      * added to the end of $whereString and form final WHERE clause of the query.
      * If you specify multiple logical expression they are connected using
      * a logical and.
@@ -114,7 +114,7 @@ class ezcQueryDelete extends ezcQuery
         }
 
         // glue string should be inserted each time but not before first entry
-        if ( $this->whereString != 'WHERE ' ) 
+        if ( $this->whereString != 'WHERE ' )
         {
             $this->whereString .= ' AND ';
         }

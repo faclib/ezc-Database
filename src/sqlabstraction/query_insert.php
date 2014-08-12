@@ -62,7 +62,7 @@ class ezcQueryInsert extends ezcQuery
      * @param PDO $db
      * @param array(string=>string) $aliases
      */
-    public function __construct( PDO $db, array $aliases = array() )
+    public function __construct( $db, array $aliases = array() )
     {
         parent::__construct( $db, $aliases );
     }
@@ -102,7 +102,7 @@ class ezcQueryInsert extends ezcQuery
             // Assume that set( 'columnName', "nextval('sequenceName')") was called.
             // Converting sequence SQL "nextval('sequenceName')" that valid for PostgreSQL
             // to "sequenceName.nextval" that valid for Oracle.
-            
+
             if ( preg_match( "/nextval\('(.*)'\)/", $expression, $matches ) )
             {
                 $sequenceName = $matches[1];

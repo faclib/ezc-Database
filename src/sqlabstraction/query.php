@@ -62,7 +62,7 @@ abstract class ezcQuery
 
     /**
      * Stores the type of a value which will we used when the value is bound.
-     * 
+     *
      * @var array(string=>int)
      */
     private $boundParametersType = array();
@@ -77,7 +77,7 @@ abstract class ezcQuery
 
     /**
      * Stores the type of a value which will we used when the value is bound.
-     * 
+     *
      * @var array(string=>int)
      */
     private $boundValuesType = array();
@@ -96,21 +96,40 @@ abstract class ezcQuery
      * friendly names. E.g PersistentObject uses it to allow using property and class
      * names instead of column and table names.
      *
-     * @param PDO $db
+     * @param mixed $ezcDb
      * @param array(string=>string) $aliases
      */
-    public function __construct( PDO $db, array $aliases = array() )
+    public function __construct( $ezcDb, array $aliases = array() )
     {
-        $this->db = $db;
+        if (( $ezcDb instanceof ezcDbInterface ) || ($ezcDb instanceof PDO)){
+            $this->db = $ezcDb;
+        } else {
+            throw new ezcDbException(sprintf("Объект '%s' не реализовывает 'PDO'", get_class($ezcDb)));
+        }
+
         if ( $this->expr == null )
         {
-            $this->expr = $db->createExpression();
+            $this->expr = $this->createExpression();
         }
+
         if ( !empty( $aliases ) )
         {
             $this->aliases = $aliases;
             $this->expr->setAliases( $this->aliases );
         }
+    }
+    
+    /**
+     * @return ezcQueryExpression 
+     */
+    protected function createExpression()
+    {
+        if ( $this->db instanceof ezcDbInterface ) {
+            $expr = $this->db->createExpression($this->db->getDb());
+        } else {
+            $expr = new ezcQueryExpression($this->db);
+        }
+        return $expr ;
     }
 
     /**
@@ -355,7 +374,7 @@ abstract class ezcQuery
             $this->boundCounter++;
             $placeHolder = ":ezcValue{$this->boundCounter}";
         }
-        
+
         $this->boundParameters[$placeHolder] =& $param;
         $this->boundParametersType[$placeHolder] = $type;
 

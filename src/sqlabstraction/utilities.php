@@ -31,7 +31,7 @@ class ezcDbUtilities
      *
      * @param ezcDbHandler $db
      */
-    public function __construct( ezcDbHandler $db )
+    public function __construct(ezcDbInterface $db )
     {
         $this->db = $db;
     }
