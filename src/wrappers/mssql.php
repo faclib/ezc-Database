@@ -39,6 +39,77 @@ class ezcDbWrapperMssql extends ezcDbWrapper
     }
 
     /**
+     * Constructs a handler object from the parameters $dbParams.
+     *
+     * Supported database parameters are:
+     * - dbname|database: Database name
+     * - host|hostspec:   Name of the host database is running on
+     * - port:            TCP port
+     * - user|username:   Database user name
+     * - pass|password:   Database user password
+     *
+     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @throws ezcDbMissingParameterException if the database name was not specified.
+     */
+    protected function createPDO( array $dbParams )
+    {
+        $database = null;
+        $host     = null;
+        $port     = null;
+
+        foreach ( $dbParams as $key => $val )
+        {
+            switch ( $key )
+            {
+                case 'database':
+                case 'dbname':
+                    $database = $val;
+                    break;
+
+                case 'host':
+                case 'hostspec':
+                    $host = $val;
+                    break;
+
+                case 'port':
+                    $port = $val;
+                    break;
+            }
+        }
+
+        if ( !isset( $database ) )
+        {
+            throw new ezcDbMissingParameterException( 'database', 'dbParams' );
+        }
+
+        if ( ezcBaseFeatures::os() === 'Windows' )
+        {
+            $dsn = "mssql:dbname=$database";
+        }
+        else
+        {
+            // uses FreeTDS
+            $dsn = "dblib:dbname=$database";
+        }
+
+        if ( isset( $host ) && $host )
+        {
+            $dsn .= ";host=$host";
+            if ( isset( $port ) && $port )
+            {
+                $dsn .= ":$port";
+            }
+        }
+
+        parent::createPDO( $dbParams, $dsn );
+
+        // setup options
+        $this->setOptions( new ezcDbMssqlOptions() );
+    }
+
+
+
+    /**
      * Associates an option object with this handler and changes settings for
      * opened connections.
      *
@@ -90,7 +161,7 @@ class ezcDbWrapperMssql extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionMssql( $this->getDb()  );
+        return new ezcQueryExpressionMssql( $this  );
     }
 
     /**

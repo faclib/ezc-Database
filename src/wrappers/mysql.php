@@ -41,6 +41,89 @@ class ezcDbWrapperMysql extends ezcDbWrapper
     }
 
     /**
+     * Constructs a handler object from the parameters $dbParams.
+     *
+     * Supported database parameters are:
+     * - dbname|database: Database name
+     * - user|username:   Database user name
+     * - pass|password:   Database user password
+     * - host|hostspec:   Name of the host database is running on
+     * - port:            TCP port
+     * - charset:         Client character set
+     * - socket:          UNIX socket path
+     *
+     * @throws ezcDbMissingParameterException if the database name was not specified.
+     * @param array $dbParams Database connection parameters (key=>value pairs).
+     */
+    protected function createPDO($dbParams, $dsn)
+    {
+        $database = null;
+        $charset  = null;
+        $host     = null;
+        $port     = null;
+        $socket   = null;
+
+        foreach ( $dbParams as $key => $val )
+        {
+            switch ( $key )
+            {
+                case 'database':
+                case 'dbname':
+                    $database = $val;
+                    break;
+
+                case 'charset':
+                    $charset = $val;
+                    break;
+
+                case 'host':
+                case 'hostspec':
+                    $host = $val;
+                    break;
+
+                case 'port':
+                    $port = $val;
+                    break;
+
+                case 'socket':
+                    $socket = $val;
+                    break;
+            }
+        }
+
+        if ( !isset( $database ) )
+        {
+            throw new ezcDbMissingParameterException( 'database', 'dbParams' );
+        }
+
+        $dsn = "mysql:dbname=$database";
+
+        if ( isset( $host ) && $host )
+        {
+            $dsn .= ";host=$host";
+        }
+
+        if ( isset( $port ) && $port )
+        {
+            $dsn .= ";port=$port";
+        }
+
+        if ( isset( $charset ) && $charset )
+        {
+            $dsn .= ";charset=$charset";
+        }
+
+        if ( isset( $socket ) && $socket )
+        {
+            $dsn .= ";unix_socket=$socket";
+        }
+
+        return parent::createPDO($dbParams, $dsn);
+    }
+
+
+
+    /**
      * Returns 'mysql'.
      *
      * @return string

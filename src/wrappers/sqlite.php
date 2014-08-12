@@ -40,6 +40,67 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
     }
 
     /**
+     * Constructs a handler object from the parameters $dbParams.
+     *
+     * Supported database parameters are:
+     * - dbname|database: Database name
+     * - port:            If "memory" is used then the driver will use an
+     *                    in-memory database, and the database name is ignored.
+     *
+     * @throws ezcDbMissingParameterException if the database name was not specified.
+     * @param array $dbParams Database connection parameters (key=>value pairs).
+     */
+    public function createPDO( $dbParams )
+    {
+        $database = false;
+
+        foreach ( $dbParams as $key => $val )
+        {
+            switch ( $key )
+            {
+                case 'database':
+                case 'dbname':
+                    $database = $val;
+                    if ( !empty( $database ) && $database[0] != '/' && ezcBaseFeatures::os() != 'Windows' )
+                    {
+                        $database = '/' . $database;
+                    }
+                    break;
+            }
+        }
+
+        // If the "port" is set then we use "sqlite::memory:" as DSN, otherwise we fallback
+        // to the database name.
+        if ( !empty( $dbParams['port'] ) && $dbParams['port'] == 'memory' )
+        {
+            $dsn = "sqlite::memory:";
+        }
+        else
+        {
+            if ( $database === false )
+            {
+                throw new ezcDbMissingParameterException( 'database', 'dbParams' );
+            }
+
+            $dsn = "sqlite:$database";
+        }
+
+        $db = parent::createPDO( $dbParams, $dsn );
+
+        /* Register PHP implementations of missing functions in SQLite */
+        $db->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );
+        $db->sqliteCreateFunction( 'mod', array( 'ezcQuerySqliteFunctions', 'modImpl' ), 2 );
+        $db->sqliteCreateFunction( 'locate', array( 'ezcQuerySqliteFunctions', 'positionImpl' ), 2 );
+        $db->sqliteCreateFunction( 'floor', array( 'ezcQuerySqliteFunctions', 'floorImpl' ), 1 );
+        $db->sqliteCreateFunction( 'ceil', array( 'ezcQuerySqliteFunctions', 'ceilImpl' ), 1 );
+        $db->sqliteCreateFunction( 'concat', array( 'ezcQuerySqliteFunctions', 'concatImpl' ) );
+        $db->sqliteCreateFunction( 'toUnixTimestamp', array( 'ezcQuerySqliteFunctions', 'toUnixTimestampImpl' ), 1 );
+        $dbs->sqliteCreateFunction( 'now', 'time', 0 );
+    }
+
+
+
+    /**
      * Returns 'sqlite'.
      *
      * @return string
@@ -80,7 +141,7 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionSqlite( $this->getDb() );
+        return new ezcQueryExpressionSqlite( $this );
     }
 
     /**

@@ -29,6 +29,52 @@ class ezcDbWrapperOracle extends ezcDbWrapper
     }
 
     /**
+     * Constructs a handler object from the parameters $dbParams.
+     *
+     * Supported database parameters are:
+     * - dbname|database: Database name
+     * - user|username:   Database user name
+     * - pass|password:   Database user password
+     * - charset:         Client character set
+     *
+     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @throws ezcDbMissingParameterException if the database name was not specified.
+     */
+    public function createPDO( $dbParams )
+    {
+        $database = null;
+        $charset  = null;
+
+        foreach ( $dbParams as $key => $val )
+        {
+            switch ( $key )
+            {
+                case 'database':
+                case 'dbname':
+                    $database = $val;
+                    break;
+                case 'charset':
+                    $charset = $val;
+                    break;
+            }
+        }
+
+        if ( !isset( $database ) )
+        {
+            throw new ezcDbMissingParameterException( 'database', 'dbParams' );
+        }
+
+        $dsn = "oci:dbname=$database";
+
+        if ( isset( $charset ) && $charset )
+        {
+            $dsn .= ";charset=$charset";
+        }
+
+        parent::createPDO( $dbParams, $dsn );
+    }
+
+    /**
      * Returns 'oracle'.
      *
      * @return string
@@ -55,7 +101,7 @@ class ezcDbWrapperOracle extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionOracle( $this->getDb()  );
+        return new ezcQueryExpressionOracle( $this );
     }
 
     /**

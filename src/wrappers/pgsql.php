@@ -28,6 +28,67 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
     }
 
     /**
+     * Constructs a handler object from the parameters $dbParams.
+     *
+     * Supported database parameters are:
+     * - dbname|database: Database name
+     * - user|username:   Database user name
+     * - pass|password:   Database user password
+     * - host|hostspec:   Name of the host database is running on
+     * - port:            TCP port
+     *
+     * @throws ezcDbMissingParameterException if the database name was not specified.
+     * @param array $dbParams Database connection parameters (key=>value pairs).
+     */
+    public function createPDO( $dbParams )
+    {
+        $database = null;
+        $charset  = null;
+        $host     = null;
+        $port     = null;
+        $socket   = null;
+
+        foreach ( $dbParams as $key => $val )
+        {
+            switch ( $key )
+            {
+                case 'database':
+                case 'dbname':
+                    $database = $val;
+                    break;
+
+                case 'host':
+                case 'hostspec':
+                    $host = $val;
+                    break;
+
+                case 'port':
+                    $port = $val;
+                    break;
+            }
+        }
+
+        if ( !isset( $database ) )
+        {
+            throw new ezcDbMissingParameterException( 'database', 'dbParams' );
+        }
+
+        $dsn = "pgsql:dbname=$database";
+
+        if ( isset( $host ) && $host )
+        {
+            $dsn .= " host=$host";
+        }
+
+        if ( isset( $port ) && $port )
+        {
+            $dsn .= " port=$port";
+        }
+
+        parent::createPDO( $dbParams, $dsn );
+    }
+
+    /**
      * Returns 'pgsql'.
      *
      * @return string
@@ -44,7 +105,7 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionPgsql( $this->getDb() );
+        return new ezcQueryExpressionPgsql( $this );
     }
 
     /**

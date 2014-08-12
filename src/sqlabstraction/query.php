@@ -101,7 +101,7 @@ abstract class ezcQuery
      */
     public function __construct( $ezcDb, array $aliases = array() )
     {
-        if (( $ezcDb instanceof ezcDbInterface ) || ($ezcDb instanceof PDO)){
+        if ( ( $ezcDb instanceof ezcDbInterface ) || ($ezcDb instanceof PDO) ){
             $this->db = $ezcDb;
         } else {
             throw new ezcDbException(sprintf("Объект '%s' не реализовывает 'PDO'", get_class($ezcDb)));
@@ -118,14 +118,14 @@ abstract class ezcQuery
             $this->expr->setAliases( $this->aliases );
         }
     }
-    
+
     /**
-     * @return ezcQueryExpression 
+     * @return ezcQueryExpression
      */
     protected function createExpression()
     {
         if ( $this->db instanceof ezcDbInterface ) {
-            $expr = $this->db->createExpression($this->db->getDb());
+            $expr = $this->db->createExpression( $this->db );
         } else {
             $expr = new ezcQueryExpression($this->db);
         }
