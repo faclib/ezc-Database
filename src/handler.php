@@ -96,7 +96,7 @@ abstract class ezcDbHandler extends PDO implements ezcDbInterface
      */
     public function getDb()
     {
-        return $this->db;
+        return $this;
     }
 
 

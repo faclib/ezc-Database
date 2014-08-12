@@ -9,4 +9,6 @@ $stmt->bindValue( ':author', 'Robert Foster' );
 $stmt->execute();
 $rows = $stmt->fetchAll();
 
+print_r($rows);
+
 

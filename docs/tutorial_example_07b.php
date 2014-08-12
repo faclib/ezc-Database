@@ -14,6 +14,7 @@ $q->select( 'id' )
             ->rightJoin( 'table3', 'table2.id', 'table3.id' );
 
 $stmt = $q->prepare();
-$stmt->execute();
+echo $stmt->queryString;
+//$stmt->execute();
 
 

@@ -27,5 +27,6 @@ $q->select('*')
   ->where( ' id >= 1 ', $q->expr->in( 'company', $q2 ) );
 
 $stmt = $q->prepare();
-$stmt->execute();
+echo $stmt->queryString;
+//$stmt->execute();
 

@@ -14,4 +14,6 @@ $q->select( '*' )->from( 'quotes' )
 $stmt = $q->prepare();
 $stmt->execute();
 
+print_r($stmt->fetchAll());
+
 
