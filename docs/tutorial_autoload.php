@@ -23,12 +23,12 @@ if (!class_exists('ezcBase')) {
 }
 
 /**
- * Autoload ezc classes 
- * 
- * @param string $className 
+ * Autoload ezc classes
+ *
+ * @param string $className
  */
 function __autoload( $className )
 {
     ezcBase::autoload( $className );
 }
-?>
+
