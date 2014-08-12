@@ -91,7 +91,8 @@ class ezcDbWrapperMssql extends ezcDbWrapper
             }
         }
 
-        parent::createPDO( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
 
         // setup options
         $this->setOptions( new ezcDbMssqlOptions() );

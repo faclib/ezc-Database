@@ -27,8 +27,14 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
      * @throws ezcDbMissingParameterException if the database name was not specified.
      * @param array $dbParams Database connection parameters (key=>value pairs).
      */
-    public function __construct( $dbParams )
+    public function __construct( $dbParams, array $options = array() )
     {
+        if (is_array($dbParams)) {
+            if (isset($dbParams['pdo']) && ($dbParams['pdo'] instanceof PDO)) {
+                $db = $dbParams['pdo'];
+            }
+            $options = array_merge((array) @$dbParams['params'], $options);
+        }
         if ($dbParams instanceof PDO) {
              parent::__construct($dbParams);
              return;
@@ -67,7 +73,8 @@ class ezcDbWrapperSqlite extends ezcDbWrapper
             $dsn = "sqlite:$database";
         }
 
-        pparent::createPDO( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
 
         /* Register PHP implementations of missing functions in SQLite */
         $this->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );

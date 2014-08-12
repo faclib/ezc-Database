@@ -65,7 +65,8 @@ class ezcDbWrapperOracle extends ezcDbWrapper
             $dsn .= ";charset=$charset";
         }
 
-        parent::createPDO( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**

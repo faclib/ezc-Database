@@ -79,7 +79,8 @@ class ezcDbWrapperPgsql extends ezcDbWrapper
             $dsn .= " port=$port";
         }
 
-        parent::createPDO( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**

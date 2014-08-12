@@ -55,12 +55,21 @@ class ezcDbFactory
      *
      * @var array(string=>string)
      */
-    static private $implementations = array( 'mysql'  => 'ezcDbHandlerMysql',
-                                             'pgsql'  => 'ezcDbHandlerPgsql',
-                                             'oracle' => 'ezcDbHandlerOracle',
-                                             'sqlite' => 'ezcDbHandlerSqlite',
-                                             'mssql' => 'ezcDbHandlerMssql',
-                                            );
+    static private $implementations = array(
+        /*
+        'mysql'  => 'ezcDbHandlerMysql',
+        'pgsql'  => 'ezcDbHandlerPgsql',
+        'oracle' => 'ezcDbHandlerOracle',
+        'sqlite' => 'ezcDbHandlerSqlite',
+        'mssql'  => 'ezcDbHandlerMssql',
+        /* */
+        'mysql'  => 'ezcDbWrapperMysql',
+        'pgsql'  => 'ezcDbWrapperPgsql',
+        'oracle' => 'ezcDbWrapperOracle',
+        'sqlite' => 'ezcDbWrapperSqlite',
+        'mssql'  => 'ezcDbWrapperMssql',
+        /* */
+    );
 
     /**
      * Adds a database implementation to the list of known implementations.

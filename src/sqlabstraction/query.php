@@ -127,7 +127,12 @@ abstract class ezcQuery
         if ( $this->db instanceof ezcDbInterface ) {
             $expr = $this->db->createExpression( $this->db );
         } else {
-            $expr = new ezcQueryExpression($this->db);
+            $driver = $this->db->getAttribute(PDO::ATTR_DRIVER_NAME);
+            $className = 'ezcQueryExpression';
+            if ( $driver !== 'mysql' ) {
+                $className .=  strtoupper(substr($impName, 0, 1)) . substr($impName, 1);
+            }
+            $expr = new $className($this->db);
         }
         return $expr ;
     }

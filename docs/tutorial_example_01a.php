@@ -2,21 +2,29 @@
 
 require_once __DIR__ . '/tutorial_example_01.php';
 
+print_r(ezcDbInstance::get());
+
+$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+$db = new ezcDbWrapperMysql($pdo);
+
+ezcDbInstance::set( $db, 'wrapper' );
 ezcDbInstance::chooseDefault('wrapper');
+
+
 $db = ezcDbInstance::get();
 
-// $res = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
+$res = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
 
-// print_r($res);
-//
-$pdo = new PDO('sqlite::memory:');
+print_r($res);
 
-$db = ezcDbFactory::wrapper($pdo);
-print_r($db->getName());
+// $pdo = new PDO('sqlite::memory:');
+
+// $db = ezcDbFactory::wrapper($pdo);
+// print_r($db->getName());
 
 
-$db = ezcDbFactory::wrapper(ezcDbInstance::get());
-print_r($db->getName());
+// $db = ezcDbFactory::wrapper(ezcDbInstance::get());
+// print_r($db->getName());
 
 // $db = new ezcDbWrapperMysql($pdo);
 // $res = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);

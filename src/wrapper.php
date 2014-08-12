@@ -57,13 +57,9 @@ abstract class ezcDbWrapper implements ezcDbInterface
      */
     public function __construct( PDO $db )
     {
-        $this->_setDb($db);
-    }
-
-    private function _setDb( PDO $db )
-    {
         $this->db = $db;
     }
+
 
     /**
      * Constructs a handler object.
@@ -101,13 +97,12 @@ abstract class ezcDbWrapper implements ezcDbInterface
             }
         }
 
-        $db = \PDO( $dsn, $user, $pass, $driverOptions );
+        $db = new PDO( $dsn, $user, $pass, $driverOptions );
 
         $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         $db->setAttribute( PDO::ATTR_CASE, PDO::CASE_NATURAL );
 
-        $this->_setDb($db);
-        return $this->db;
+        return $db;
     }
 
     /**

@@ -113,7 +113,8 @@ class ezcDbWrapperMysql extends ezcDbWrapper
             $dsn .= ";unix_socket=$socket";
         }
 
-        parent::createPDO( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**
