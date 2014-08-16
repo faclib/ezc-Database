@@ -143,6 +143,10 @@ class ezcDbFactory
      */
     static public function create( $dbParams )
     {
+        if ( $dbParams instanceof \PDO ) {
+            return self::wrapper( $dbParams );
+        }
+
         if ( is_string( $dbParams ) )
         {
             $dbParams = self::parseDSN( $dbParams );
@@ -180,8 +184,12 @@ class ezcDbFactory
      */
     static public function wrapper( $db )
     {
-        if (( $db instanceof ezcDbHandler) || ( $db instanceof ezcDbWrapper)) {
+        // if (( $db instanceof ezcDbHandler) || ( $db instanceof ezcDbWrapper)) {
+        if ( $db instanceof ezcDbInterface ) {
             return $db;
+        }
+        if ( ! $db instanceof \PDO ) {
+            throw new ezcBaseValueException( 'db', $db, ' is not PDO', 'parameter' );
         }
 
         $impName = $db->getAttribute(PDO::ATTR_DRIVER_NAME);

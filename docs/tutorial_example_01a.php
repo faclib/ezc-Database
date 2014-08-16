@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/tutorial_example_01.php';
 
-print_r(ezcDbInstance::get());
+// print_r(ezcDbInstance::get());
 
 $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 $db = new ezcDbWrapperMysql($pdo);

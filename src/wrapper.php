@@ -116,35 +116,42 @@ abstract class ezcDbWrapper implements ezcDbInterface
 
     public function __call($name, $args)
     {
-        switch ($name) {
-            case 'exec':
-            case 'query':
-            case 'quote':
-            case 'prepare':
-            case 'errorCode':
-            case 'errorInfo':
-            case 'getAttribute':
-            case 'getAvailableDrivers':
-            case 'inTransaction':
-            case 'lastInsertId':
-            case 'setAttribute':
-            default:
-                return $this->dispatchMethod($name, $args);
-                break;
+        switch (@count($args)) {
+            case 0: return $this->db->{$name}();
+            case 1: return $this->db->{$name}($args[0]);
+            case 2: return $this->db->{$name}($args[0], $args[1]);
+            case 3: return $this->db->{$name}($args[0], $args[1], $args[2]);
+            default: return call_user_func_array(array($this->db, $name), $args);
         }
+        // switch ($name) {
+        //     case 'exec':
+        //     case 'query':
+        //     case 'quote':
+        //     case 'prepare':
+        //     case 'errorCode':
+        //     case 'errorInfo':
+        //     case 'getAttribute':
+        //     case 'getAvailableDrivers':
+        //     case 'inTransaction':
+        //     case 'lastInsertId':
+        //     case 'setAttribute':
+        //     default:
+        //         return $this->dispatchMethod($name, $args);
+        //         break;
+        // }
     }
 
 
-    protected function dispatchMethod($method, array $p = null)
-    {
-        switch (@count($p)) {
-            case 0: return $this->db->{$method}();
-            case 1: return $this->db->{$method}($p[0]);
-            case 2: return $this->db->{$method}($p[0], $p[1]);
-            case 3: return $this->db->{$method}($p[0], $p[1], $p[2]);
-            default: return call_user_func_array(array($this->db, $method), $p);
-        }
-    }
+    // protected function dispatchMethod($method, array $p = null)
+    // {
+    //     switch (@count($p)) {
+    //         case 0: return $this->db->{$method}();
+    //         case 1: return $this->db->{$method}($p[0]);
+    //         case 2: return $this->db->{$method}($p[0], $p[1]);
+    //         case 3: return $this->db->{$method}($p[0], $p[1], $p[2]);
+    //         default: return call_user_func_array(array($this->db, $method), $p);
+    //     }
+    // }
 
     /**
      * Returns true if the given $feature is supported by the handler.
