@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing the ezcDbHandlerOracle class.
+ * ezcDbHandlerOracle class  - oracle.php file
  *
- * @package Database
- * @version 1.4.8
- * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/new_bsd New BSD License
+ * @author     Dmitriy Tyurin <fobia3d@gmail.com>
+ * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
+
 
 /**
  * Oracle driver implementation
@@ -32,6 +31,11 @@ class ezcDbHandlerOracle extends ezcDbHandler
      */
     public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = null;
         $charset  = null;
 
@@ -61,7 +65,8 @@ class ezcDbHandlerOracle extends ezcDbHandler
             $dsn .= ";charset=$charset";
         }
 
-        parent::__construct( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**

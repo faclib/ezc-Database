@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing the ezcDbHandlerMysql class.
+ * ezcDbHandlerMysql class  - mysql.php file
  *
- * @package Database
- * @version 1.4.8
- * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/new_bsd New BSD License
+ * @author     Dmitriy Tyurin <fobia3d@gmail.com>
+ * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
+
 
 /**
  * MySQL driver implementation
@@ -30,6 +29,7 @@ class ezcDbHandlerMysql extends ezcDbHandler
         "end"   => '`',
     );
 
+
     /**
      * Constructs a handler object from the parameters $dbParams.
      *
@@ -47,6 +47,11 @@ class ezcDbHandlerMysql extends ezcDbHandler
      */
     public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = null;
         $charset  = null;
         $host     = null;
@@ -108,7 +113,8 @@ class ezcDbHandlerMysql extends ezcDbHandler
             $dsn .= ";unix_socket=$socket";
         }
 
-        parent::__construct( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**

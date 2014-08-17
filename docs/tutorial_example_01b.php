@@ -4,7 +4,7 @@ require_once __DIR__ . '/tutorial_example_01.php';
 
 $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 
-// $db = new ezcDbWrapperHandlerMysql($pdo);
+// $db = new ezcDbHandlerMysql($pdo);
 $db = ezcDbFactory::wrapper($pdo);
 
 ezcDbInstance::set( $db, 'wrapper' );
@@ -24,7 +24,7 @@ echo "\n----\n";
 
 $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 
-// $db = new ezcDbWrapperHandlerMysql($pdo);
+// $db = new ezcDbHandlerMysql($pdo);
 $db = ezcDbFactory::create($pdo);
 
 ezcDbInstance::set( $db, 'wrapper-1' );

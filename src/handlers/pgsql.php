@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing the ezcDbHandlerMysql class.
+ * ezcDbHandlerPgsql class  - pgsql.php file
  *
- * @package Database
- * @version 1.4.8
- * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/new_bsd New BSD License
+ * @author     Dmitriy Tyurin <fobia3d@gmail.com>
+ * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
+
 
 /**
  * PostgreSQL driver implementation
@@ -17,7 +16,7 @@
  */
 class ezcDbHandlerPgsql extends ezcDbHandler
 {
-    /**
+     /**
      * Constructs a handler object from the parameters $dbParams.
      *
      * Supported database parameters are:
@@ -32,6 +31,11 @@ class ezcDbHandlerPgsql extends ezcDbHandler
      */
     public function __construct( $dbParams )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = null;
         $charset  = null;
         $host     = null;
@@ -75,7 +79,8 @@ class ezcDbHandlerPgsql extends ezcDbHandler
             $dsn .= " port=$port";
         }
 
-        parent::__construct( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
     }
 
     /**
