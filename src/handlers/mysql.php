@@ -6,13 +6,12 @@
  * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
 
-
 /**
  * MySQL driver implementation
  *
  * @see ezcDbHandler
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  */
 class ezcDbHandlerMysql extends ezcDbHandler
 {

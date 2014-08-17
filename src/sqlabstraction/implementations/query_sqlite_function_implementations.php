@@ -3,7 +3,7 @@
  * File containing the ezcQueryExpressionSqlite class.
  *
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -16,7 +16,7 @@
  * registered with SQLite with it's PDO::sqliteRegisterFunction() method.
  *
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  */
 class ezcQuerySqliteFunctions
 {

@@ -23,6 +23,7 @@
  *
  * @author  Dmitriy Tyurin <fobia3d@gmail.com>
  * @package Database
+ * @version 1.4.9
  */
 abstract class ezcDbHandler implements ezcDbInterface
 {
@@ -120,7 +121,7 @@ abstract class ezcDbHandler implements ezcDbInterface
 
     /**
      * Возвращает указатель на обработчик базы данных.
-     * 
+     *
      * @return PDO
      */
     public function getDb()

@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
- * @version 1.4.8
+ * @version 1.4.9
  * @filesource
  * @package Database
  * @subpackage Tests

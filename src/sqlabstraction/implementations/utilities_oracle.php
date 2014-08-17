@@ -3,7 +3,7 @@
  * File containing the ezcDbUtilities class.
  *
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  * @access private
@@ -21,7 +21,7 @@
  * @package Database
  * @todo this class must be renamed
  * @access private
- * @version 1.4.8
+ * @version 1.4.9
  */
 class ezcDbUtilitiesOracle extends ezcDbUtilities
 {

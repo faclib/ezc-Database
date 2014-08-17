@@ -14,7 +14,7 @@
  * This class reimplements the methods that have a different syntax in SQL Server.
  *
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  */
 class ezcQueryExpressionMssql extends ezcQueryExpression
 {

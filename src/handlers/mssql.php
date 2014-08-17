@@ -6,13 +6,12 @@
  * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
 
-
 /**
  * MS SQL Server driver implementation.
  *
  * @see ezcDbHandler
  * @package Database
- * @version 1.4.8
+ * @version 1.4.9
  */
 class ezcDbHandlerMssql extends ezcDbHandler
 {
