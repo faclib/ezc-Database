@@ -1,6 +1,6 @@
 <?php
 /**
- * mssql class  - mssql.php file
+ * ezcDbWrapperHandlerMssql class  - mssql.php file
  *
  * @author     Dmitriy Tyurin <fobia3d@gmail.com>
  * @copyright  Copyright (c) 2014 Dmitriy Tyurin
@@ -10,11 +10,11 @@
 /**
  * MS SQL Server driver implementation.
  *
- * @see ezcDbWrapper
+ * @see ezcDbWrapperHandler
  * @package Database
  * @version 1.4.7
  */
-class ezcDbWrapperMssql extends ezcDbWrapper
+class ezcDbWrapperHandlerMssql extends ezcDbWrapperHandler
 {
     /**
      * Contains the options that are used to set up handler.

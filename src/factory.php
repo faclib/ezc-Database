@@ -63,11 +63,11 @@ class ezcDbFactory
         'sqlite' => 'ezcDbHandlerSqlite',
         'mssql'  => 'ezcDbHandlerMssql',
         /* */
-        'mysql'  => 'ezcDbWrapperMysql',
-        'pgsql'  => 'ezcDbWrapperPgsql',
-        'oracle' => 'ezcDbWrapperOracle',
-        'sqlite' => 'ezcDbWrapperSqlite',
-        'mssql'  => 'ezcDbWrapperMssql',
+        'mysql'  => 'ezcDbWrapperHandlerMysql',
+        'pgsql'  => 'ezcDbWrapperHandlerPgsql',
+        'oracle' => 'ezcDbWrapperHandlerOracle',
+        'sqlite' => 'ezcDbWrapperHandlerSqlite',
+        'mssql'  => 'ezcDbWrapperHandlerMssql',
         /* */
     );
 
@@ -180,11 +180,11 @@ class ezcDbFactory
 
     /**
      * @param   PDO|ezcDbHandler  $db
-     * @return  ezcDbWrapper
+     * @return  ezcDbWrapperHandler
      */
     static public function wrapper( $db )
     {
-        // if (( $db instanceof ezcDbHandler) || ( $db instanceof ezcDbWrapper)) {
+        // if (( $db instanceof ezcDbHandler) || ( $db instanceof ezcDbWrapperHandler)) {
         if ( $db instanceof ezcDbInterface ) {
             return $db;
         }
@@ -194,7 +194,7 @@ class ezcDbFactory
 
         $impName = $db->getAttribute(PDO::ATTR_DRIVER_NAME);
 
-        $className = 'ezcDbWrapper' . strtoupper(substr($impName, 0, 1)) . substr($impName, 1);
+        $className = 'ezcDbWrapperHandler' . strtoupper(substr($impName, 0, 1)) . substr($impName, 1);
         $instance = new $className( $db );
 
         return $instance;

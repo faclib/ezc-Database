@@ -1,6 +1,6 @@
 <?php
 /**
- * oracle class  - oracle.php file
+ * ezcDbWrapperHandlerOracle class  - oracle.php file
  *
  * @author     Dmitriy Tyurin <fobia3d@gmail.com>
  * @copyright  Copyright (c) 2014 Dmitriy Tyurin
@@ -10,12 +10,12 @@
 /**
  * Oracle driver implementation
  *
- * @see ezcDbWrapper
+ * @see ezcDbWrapperHandler
  * @package Database
  * @version 1.4.7
  */
 
-class ezcDbWrapperOracle extends ezcDbWrapper
+class ezcDbWrapperHandlerOracle extends ezcDbWrapperHandler
 {
     /**
      * Constructs a handler object from the parameters $dbParams.

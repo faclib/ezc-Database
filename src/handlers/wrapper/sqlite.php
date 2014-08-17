@@ -1,6 +1,6 @@
 <?php
 /**
- * sqlite class  - sqlite.php file
+ * ezcDbWrapperHandlerSqlite class  - sqlite.php file
  *
  * @author     Dmitriy Tyurin <fobia3d@gmail.com>
  * @copyright  Copyright (c) 2014 Dmitriy Tyurin
@@ -10,11 +10,11 @@
 /**
  * SQLite driver implementation
  *
- * @see ezcDbWrapper
+ * @see ezcDbWrapperHandler
  * @package Database
  * @version 1.4.7
  */
-class ezcDbWrapperSqlite extends ezcDbWrapper
+class ezcDbWrapperHandlerSqlite extends ezcDbWrapperHandler
 {
    /**
      * Constructs a handler object from the parameters $dbParams.
