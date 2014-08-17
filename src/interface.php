@@ -100,7 +100,7 @@ interface ezcDbInterface
 
     // public function exec($statement);
     // public function query($statement);
-    // public function quote($string, $parameter_type = \PDO::PARAM_STR);
+    // public function quote($string, $parameter_type = PDO::PARAM_STR);
     // public function prepare($statement, array $driver_options = array());
     // public function errorCode();
     // public function errorInfo();

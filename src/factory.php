@@ -143,7 +143,7 @@ class ezcDbFactory
      */
     static public function create( $dbParams )
     {
-        if ( $dbParams instanceof \PDO ) {
+        if ( $dbParams instanceof PDO ) {
             return self::wrapper( $dbParams );
         }
 
@@ -188,7 +188,7 @@ class ezcDbFactory
         if ( $db instanceof ezcDbInterface ) {
             return $db;
         }
-        if ( ! $db instanceof \PDO ) {
+        if ( ! $db instanceof PDO ) {
             throw new ezcBaseValueException( 'db', $db, ' is not PDO', 'parameter' );
         }
 

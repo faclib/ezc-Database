@@ -45,7 +45,7 @@ abstract class ezcDbWrapper implements ezcDbInterface
     /**
      * Указатель на обработчик базы данных, чтобы использовать для этого запроса.
      *
-     * @var \PDO
+     * @var PDO
      */
     protected $db;
 
@@ -54,9 +54,9 @@ abstract class ezcDbWrapper implements ezcDbInterface
      *
      * note: Remember to always call this constructor from constructor of a derived class!
      *
-     * @param \PDO   $db       Misc database connection parameters.
+     * @param PDO   $db       Misc database connection parameters.
      */
-    public function __construct( \PDO $db )
+    public function __construct( PDO $db )
     {
         $this->db = $db;
     }
@@ -107,7 +107,7 @@ abstract class ezcDbWrapper implements ezcDbInterface
     }
 
     /**
-     * @return \PDO
+     * @return PDO
      */
     public function getDb()
     {
