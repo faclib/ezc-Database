@@ -3,7 +3,7 @@
  * File containing the ezcDbHandlerMysql class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -13,7 +13,7 @@
  *
  * @see ezcDbHandler
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  */
 class ezcDbHandlerPgsql extends ezcDbHandler
 {

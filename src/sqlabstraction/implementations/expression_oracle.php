@@ -3,7 +3,7 @@
  * File containing the ezcQueryExpressionOracle class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -14,7 +14,7 @@
  * This class reimplements the methods that have a different syntax in Oracle.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  */
 class ezcQueryExpressionOracle extends ezcQueryExpression
 {
@@ -92,7 +92,7 @@ class ezcQueryExpressionOracle extends ezcQueryExpression
 
     /**
      * Returns the SQL to locate the position of the first occurrence of a substring
-     * 
+     *
      * @param string $substr
      * @param string $value
      * @return string
@@ -254,8 +254,8 @@ class ezcQueryExpressionOracle extends ezcQueryExpression
      *                  ->where( $q->expr->in( 'id', 1, 2, 3 ) );
      * </code>
      *
-     * Oracle limits the number of values in a single IN() to 1000. This 
-     * implementation creates a list of combined IN() expressions to bypass 
+     * Oracle limits the number of values in a single IN() to 1000. This
+     * implementation creates a list of combined IN() expressions to bypass
      * this limitation.
      *
      * @throws ezcQueryVariableParameterException if called with less than two
@@ -286,7 +286,7 @@ class ezcQueryExpressionOracle extends ezcQueryExpression
         {
             throw new ezcQueryVariableParameterException( 'in', count( $args ), 2 );
         }
-        
+
         if ( $this->quoteValues )
         {
             foreach ( $values as $key => $value )
@@ -303,7 +303,7 @@ class ezcQueryExpressionOracle extends ezcQueryExpression
                 }
             }
         }
-        
+
         if ( count( $values ) <= 1000 )
         {
             return "{$column} IN ( " . join( ', ', $values ) . ' )';

@@ -12,7 +12,7 @@
  *
  * @see ezcDbWrapperHandler
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  */
 
 class ezcDbWrapperHandlerOracle extends ezcDbWrapperHandler

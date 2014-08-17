@@ -3,7 +3,7 @@
  * File containing the ezcDbHandler class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -15,7 +15,7 @@
  * - handling of offset/limit in a datbase independent way
  * - correct recursive handling of transactions
  *
- * @version 1.4.7
+ * @version 1.4.8
  * @package Database
  * @mainclass
  */

@@ -3,7 +3,7 @@
  * File containing the ezcQueryExpression class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -19,7 +19,7 @@
  * in PHP and can not be used in method names.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @mainclass
  */
 class ezcQueryExpression

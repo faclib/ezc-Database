@@ -16,7 +16,7 @@
  *
  * @see ezcQuery
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  */
 class ezcQuerySelectMssql extends ezcQuerySelect
 {
@@ -131,9 +131,9 @@ class ezcQuerySelectMssql extends ezcQuerySelect
         $query = parent::getQuery();
         if ( $this->hasLimit )
         {
-            if ( $this->offset) 
+            if ( $this->offset)
             {
-                if ( !$this->orderString ) 
+                if ( !$this->orderString )
                 {
                     // Uh ow. We need some columns to sort in the oposite order to make this work
                     throw new ezcQueryInvalidException( "LIMIT workaround for MS SQL", "orderBy() was not called before getQuery()." );

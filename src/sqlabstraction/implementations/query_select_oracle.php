@@ -3,7 +3,7 @@
  * File containing the ezcQueryOracle class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -17,7 +17,7 @@
  *
  * @see ezcQuery
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  */
 class ezcQuerySelectOracle extends ezcQuerySelect
 {
@@ -144,27 +144,27 @@ class ezcQuerySelectOracle extends ezcQuerySelect
         if ( $this->hasLimit )
         {
             $max = $this->offset + $this->limit;
-            if ( $this->offset > 0 ) 
+            if ( $this->offset > 0 )
             {
                 $min = $this->offset + 1;
                 $query = "SELECT * FROM (SELECT a.*, ROWNUM rn FROM ( {$query} ) a WHERE rownum <= {$max} ) WHERE rn >= {$min}";
             }
-            else 
+            else
             {
                 $query = "SELECT a.* FROM ( {$query} ) a WHERE ROWNUM <= {$max}";
-            }            
+            }
         }
         return $query;
     }
 
     /**
      * Handles preparing query.
-     * 
+     *
      * Overrides ezcQuery->prepare()
-     * 
-     * Adds "FROM dual" to the select if no FROM clause specified 
+     *
+     * Adds "FROM dual" to the select if no FROM clause specified
      * i.e. fixes queries like "SELECT 1+1" to work in Oracle.
-     * 
+     *
      * @return PDOStatement
      */
     public function prepare()

@@ -3,7 +3,7 @@
  * File containing the ezcQueryUpdate class.
  *
  * @package Database
- * @version 1.4.7
+ * @version 1.4.8
  * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
  * @license http://ez.no/licenses/new_bsd New BSD License
  */
@@ -38,7 +38,7 @@
  *
  * @package Database
  * @mainclass
- * @version 1.4.7
+ * @version 1.4.8
  */
 class ezcQueryUpdate extends ezcQuery
 {
@@ -114,9 +114,9 @@ class ezcQueryUpdate extends ezcQuery
      * must contain a logical expression or an array with logical expressions.
      * If you specify multiple logical expression they are connected using
      * a logical and.
-     * where() could be invoked several times. All provided arguments 
+     * where() could be invoked several times. All provided arguments
      * added to the end of $whereString and form final WHERE clause of the query.
-     * 
+     *
      *
      * Example:
      * <code>
@@ -143,7 +143,7 @@ class ezcQueryUpdate extends ezcQuery
         }
 
         // glue string should be inserted each time but not before first entry
-        if ( $this->whereString != 'WHERE ' ) 
+        if ( $this->whereString != 'WHERE ' )
         {
             $this->whereString .= ' AND ';
         }
