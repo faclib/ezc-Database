@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing the ezcDbHandlerSqlite class.
+ * ezcDbHandlerSqlite class  - sqlite.php file
  *
- * @package Database
- * @version 1.4.8
- * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/new_bsd New BSD License
+ * @author     Dmitriy Tyurin <fobia3d@gmail.com>
+ * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
+
 
 /**
  * SQLite driver implementation
@@ -17,7 +16,7 @@
  */
 class ezcDbHandlerSqlite extends ezcDbHandler
 {
-    /**
+   /**
      * Constructs a handler object from the parameters $dbParams.
      *
      * Supported database parameters are:
@@ -28,8 +27,13 @@ class ezcDbHandlerSqlite extends ezcDbHandler
      * @throws ezcDbMissingParameterException if the database name was not specified.
      * @param array $dbParams Database connection parameters (key=>value pairs).
      */
-    public function __construct( $dbParams )
+    public function __construct( $dbParams, array $options = array() )
     {
+        if ($dbParams instanceof PDO) {
+             parent::__construct($dbParams);
+             return;
+        }
+
         $database = false;
 
         foreach ( $dbParams as $key => $val )
@@ -63,7 +67,8 @@ class ezcDbHandlerSqlite extends ezcDbHandler
             $dsn = "sqlite:$database";
         }
 
-        parent::__construct( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
 
         /* Register PHP implementations of missing functions in SQLite */
         $this->sqliteCreateFunction( 'md5', array( 'ezcQuerySqliteFunctions', 'md5Impl' ), 1 );
@@ -75,6 +80,8 @@ class ezcDbHandlerSqlite extends ezcDbHandler
         $this->sqliteCreateFunction( 'toUnixTimestamp', array( 'ezcQuerySqliteFunctions', 'toUnixTimestampImpl' ), 1 );
         $this->sqliteCreateFunction( 'now', 'time', 0 );
     }
+
+
 
     /**
      * Returns 'sqlite'.

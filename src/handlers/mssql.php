@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing the ezcDbHandlerMssql class.
+ * ezcDbHandlerMssql class  - mssql.php file
  *
- * @package Database
- * @version 1.4.8
- * @copyright Copyright (C) 2005-2010 eZ Systems AS. All rights reserved.
- * @license http://ez.no/licenses/new_bsd New BSD License
+ * @author     Dmitriy Tyurin <fobia3d@gmail.com>
+ * @copyright  Copyright (c) 2014 Dmitriy Tyurin
  */
+
 
 /**
  * MS SQL Server driver implementation.
@@ -34,11 +33,16 @@ class ezcDbHandlerMssql extends ezcDbHandler
      * - user|username:   Database user name
      * - pass|password:   Database user password
      *
-     * @param array $dbParams Database connection parameters (key=>value pairs).
+     * @param mixed $dbParams Database connection parameters (key=>value pairs).
      * @throws ezcDbMissingParameterException if the database name was not specified.
      */
-    public function __construct( array $dbParams )
+    public function __construct( $dbParams )
     {
+
+        if ($dbParams instanceof PDO) {
+            parent::__construct($dbParams);
+            return;
+        }
         $database = null;
         $host     = null;
         $port     = null;
@@ -87,11 +91,13 @@ class ezcDbHandlerMssql extends ezcDbHandler
             }
         }
 
-        parent::__construct( $dbParams, $dsn );
+        $db = parent::createPDO( $dbParams, $dsn );
+        parent::__construct($db);
 
         // setup options
         $this->setOptions( new ezcDbMssqlOptions() );
     }
+
 
     /**
      * Associates an option object with this handler and changes settings for
@@ -113,7 +119,7 @@ class ezcDbHandlerMssql extends ezcDbHandler
         $requiredMode = $this->options->quoteIdentifier;
         if ( $requiredMode == ezcDbMssqlOptions::QUOTES_GUESS )
         {
-            $result = parent::query( "SELECT sessionproperty('QUOTED_IDENTIFIER')" );
+            $result = $this->db->query( "SELECT sessionproperty('QUOTED_IDENTIFIER')" );
             $rows = $result->fetchAll();
             $mode = (int)$rows[0][0];
             if ( $mode == 0 )
@@ -127,12 +133,12 @@ class ezcDbHandlerMssql extends ezcDbHandler
         }
         else if ( $requiredMode == ezcDbMssqlOptions::QUOTES_COMPLIANT )
         {
-            parent::exec( 'SET QUOTED_IDENTIFIER ON' );
+            $this->db->exec( 'SET QUOTED_IDENTIFIER ON' );
             $this->identifierQuoteChars = array( 'start' => '"', 'end' => '"' );
         }
         else if ( $requiredMode == ezcDbMssqlOptions::QUOTES_LEGACY )
         {
-            parent::exec( 'SET QUOTED_IDENTIFIER OFF' );
+            $this->db->exec( 'SET QUOTED_IDENTIFIER OFF' );
             $this->identifierQuoteChars = array( 'start' => '[', 'end' => ']' );
         }
     }
@@ -145,7 +151,7 @@ class ezcDbHandlerMssql extends ezcDbHandler
      */
     public function createExpression()
     {
-        return new ezcQueryExpressionMssql( $this );
+        return new ezcQueryExpressionMssql( $this  );
     }
 
     /**
@@ -186,7 +192,7 @@ class ezcDbHandlerMssql extends ezcDbHandler
         $retval = true;
         if ( $this->transactionNestingLevel == 0 )
         {
-            $retval = $this->exec( "BEGIN TRANSACTION" );
+            $retval = $this->db->exec( "BEGIN TRANSACTION" );
         }
         // else NOP
 
@@ -223,13 +229,13 @@ class ezcDbHandlerMssql extends ezcDbHandler
         {
             if ( $this->transactionErrorFlag )
             {
-                $this->exec( "ROLLBACK TRANSACTION" );
+                $this->db->exec( "ROLLBACK TRANSACTION" );
                 $this->transactionErrorFlag = false; // reset error flag
                 $retval = false;
             }
             else
             {
-                $this->exec( "COMMIT TRANSACTION" );
+                $this->db->exec( "COMMIT TRANSACTION" );
             }
         }
         // else NOP
@@ -262,7 +268,7 @@ class ezcDbHandlerMssql extends ezcDbHandler
 
         if ( $this->transactionNestingLevel == 1 )
         {
-            $this->exec( "ROLLBACK TRANSACTION" );
+            $this->db->exec( "ROLLBACK TRANSACTION" );
             $this->transactionErrorFlag = false; // reset error flag
         }
         else
