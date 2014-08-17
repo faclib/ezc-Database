@@ -16,7 +16,7 @@
  * without passing connection parameters every time.
  * (this is not the same as singleton since the connection is not stored in
  * a static member)
-
+ *
  * @package Database
  * @subpackage Tests
  */
@@ -190,4 +190,3 @@ class ezcDatabaseTransactionsTest extends ezcTestCase
          return new PHPUnit_Framework_TestSuite( "ezcDatabaseTransactionsTest" );
     }
 }
-?>

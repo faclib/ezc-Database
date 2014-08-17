@@ -65,7 +65,7 @@ class ezcQueryDeleteTest extends ezcTestCase
     public function testWithSeveralWhere()
     {
         $reference = "DELETE FROM legends WHERE Gretzky = Lindros AND 1 = 1";
-        
+
         $this->q->deleteFrom( 'legends' )
             ->where( $this->q->expr->eq( 'Gretzky', 'Lindros' ) )
             ->where( $this->q->expr->eq( 1, 1 ) );
@@ -185,4 +185,3 @@ class ezcQueryDeleteTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQueryDeleteTest' );
     }
 }
-?>

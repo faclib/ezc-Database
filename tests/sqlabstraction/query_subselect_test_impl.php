@@ -38,7 +38,7 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
         $this->e = $this->q->expr;
         $this->assertNotNull( $this->db, 'Database instance is not initialized.' );
 
-        try 
+        try
         {
             $this->db->exec( 'DROP TABLE query_test' );
             $this->db->exec( 'DROP TABLE query_test2' );
@@ -51,7 +51,7 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
         $this->db->exec( "INSERT INTO query_test VALUES ( 2, 'IBM', 'Norway', 500 )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 3, 'eZ systems', 'Ukraine', 10 )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 4, 'IBM', 'Germany', null )" );
-        
+
         // insert some data
         $this->db->exec( 'CREATE TABLE query_test2 ( id int, company VARCHAR(255), section VARCHAR(255), employees int NULL )' );
         $this->db->exec( "INSERT INTO query_test2 VALUES ( 1, 'eZ systems', 'Norway', 20 )" );
@@ -87,7 +87,7 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
         $q->select('*')->from( 'query_test' )
                         ->where( ' id >= 1 ', $q->expr->in( 'company', $q2->getQuery() ) )
                         ->orderBy( 'id' );
-        
+
         $stmt = $q->prepare();
         $stmt->execute();
 
@@ -101,7 +101,7 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
     public function testInnerDistinctSubSelectBindParamMySQL()
     {
         $db = ezcDbInstance::get();
-        if ( get_class( $db ) !== 'ezcDbHandlerMysql' ) 
+        if ( get_class( $db ) !== 'ezcDbHandlerMysql' )
         {
             $this->markTestSkipped( 'Test defined for MySQL handler class only.' );
         }
@@ -136,7 +136,7 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
     public function testInnerDistinctSubSelectBindParamGeneric()
     {
         $db = ezcDbInstance::get();
-        if ( get_class( $db ) === 'ezcDbHandlerMysql' ) 
+        if ( get_class( $db ) === 'ezcDbHandlerMysql' )
         {
             $this->markTestSkipped( 'Test defined for non-MySQL handler class only.' );
         }
@@ -223,10 +223,10 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
         $q->select('*')->from( 'query_test' )
                         ->where( ' id >= 1 ', $q->expr->in( 'company', $q2->getQuery() ) )
                         ->orderBy( 'id' );
-        
+
         $stmt = $q->prepare();
         $stmt->execute();
-        
+
         $result = $stmt->fetchAll();
         $this->assertEquals( 'IBM', $result[0]['company'] );
         $this->assertEquals( 'Norway', $result[0]['section'] );
@@ -239,4 +239,3 @@ class ezcQuerySubSelectTestImpl extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQuerySubSelectTestImpl' );
     }
 }
-?>

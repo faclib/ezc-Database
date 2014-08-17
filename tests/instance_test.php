@@ -76,5 +76,3 @@ class ezcDatabaseInstanceTest extends ezcTestCase
          return new PHPUnit_Framework_TestSuite( "ezcDatabaseInstanceTest" );
     }
 }
-
-?>

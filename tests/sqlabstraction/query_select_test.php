@@ -42,7 +42,7 @@ class TestSelect extends ezcQuerySelect
     {
         return $this->havingString;
     }
-    
+
     public function buildLimit()
     {
         return $this->limitString;
@@ -141,11 +141,11 @@ class ezcQuerySelectTest extends ezcTestCase
         $this->q->from( 'table1', array( 'table2', 'table3' ), 'table4' );
         $this->assertEquals( $reference, $this->q->buildFrom() );
         $this->q->reset();
-        
+
         $this->q->from( 'table1' )->from( array( 'table2', 'table3' ), 'table4' );
         $this->assertEquals( $reference, $this->q->buildFrom() );
         $this->q->reset();
-        
+
         $this->q->from( 'table1' )->from( 'table2')->from( 'table3' )->from( 'table4' );
         $this->assertEquals( $reference, $this->q->buildFrom() );
     }
@@ -631,4 +631,3 @@ class ezcQuerySelectTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQuerySelectTest' );
     }
 }
-?>

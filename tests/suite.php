@@ -56,7 +56,7 @@ class ezcDatabaseSuite extends PHPUnit_Framework_TestSuite
         $this->addTest( ezcQueryExpressionTest::suite() );
         $this->addTest( ezcQueryTest::suite() );
         $this->addTest( ezcQuerySelectTest::suite() );
-        $this->addTest( ezcQuerySubSelectTest::suite() );        
+        $this->addTest( ezcQuerySubSelectTest::suite() );
         $this->addTest( ezcQuerySelectTestImpl::suite() );
         $this->addTest( ezcQuerySubSelectTestImpl::suite() );
         $this->addTest( ezcQuerySelectJoinTestImpl::suite() );
@@ -73,4 +73,3 @@ class ezcDatabaseSuite extends PHPUnit_Framework_TestSuite
         return new ezcDatabaseSuite();
     }
 }
-?>

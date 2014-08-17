@@ -55,7 +55,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
             try
             {
                 $db->exec( 'CREATE TABLE ' .
-                    $db->quoteIdentifier( $table ) . 
+                    $db->quoteIdentifier( $table ) .
                     '( ' . $db->quoteIdentifier( $column = 'id' ) . ' int )'
                 );
 
@@ -97,7 +97,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
             try
             {
                 $db->exec( 'CREATE TABLE ' .
-                    $db->quoteIdentifier( $table ) . 
+                    $db->quoteIdentifier( $table ) .
                     '( ' . $db->quoteIdentifier( $column ) . ' int )'
                 );
 
@@ -143,7 +143,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
         }
 
         $db->exec( 'CREATE TABLE ' .
-            $db->quoteIdentifier( $table ) . 
+            $db->quoteIdentifier( $table ) .
             '( ' . $db->quoteIdentifier( $column = 'text' ) . ' ' . $type . ' )' );
 
         for( $i = 512; $i <= pow( 2, 16 ); $i *= 2 )
@@ -181,7 +181,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
         catch ( Exception $e ) {} // Ignore
 
         $db->exec( 'CREATE TABLE ' .
-            $db->quoteIdentifier( $table ) . 
+            $db->quoteIdentifier( $table ) .
             '( ' . $db->quoteIdentifier( $column = 'id' ) . ' int )' );
 
         // Insert 10.000 rows...
@@ -246,7 +246,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
         catch ( Exception $e ) {} // Ignore
 
         $db->exec( 'CREATE TABLE ' .
-            $db->quoteIdentifier( $table ) . 
+            $db->quoteIdentifier( $table ) .
             '( ' . $db->quoteIdentifier( $column = 'id' ) . ' int )' );
 
         // Insert 10.000 rows...
@@ -274,7 +274,7 @@ class ezcRdbmsLimitTest extends ezcTestCase
                 $query
                     ->select( $db->quoteIdentifier( $column ) )
                     ->from( $db->quoteIdentifier( $table ) )
-                    ->where( $query->expr->not( 
+                    ->where( $query->expr->not(
                         $query->expr->in(
                             $db->quoteIdentifier( $column ),
                             $inValues
@@ -301,4 +301,3 @@ class ezcRdbmsLimitTest extends ezcTestCase
         );
     }
 }
-?>

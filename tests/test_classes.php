@@ -9,9 +9,8 @@ class testDelayedInitDatabaseInstance implements ezcBaseConfigurationInitializer
             {
                 case 'delayed1':
                     return ezcDbFactory::create( 'sqlite://:memory:' );
-                  
+
             }
         }
     }
 }
-?>

@@ -204,4 +204,3 @@ class ezcQueryTest extends ezcTestCase
         $this->assertEquals( $q->getQuery(), (string) $q );
     }
 }
-?>

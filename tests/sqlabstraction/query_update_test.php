@@ -124,7 +124,7 @@ class ezcQueryUpdateTest extends ezcTestCase
             $this->q->getQuery();
         }
         catch ( Exception $e )
-        { 
+        {
             return;
         }
         $this->fail( "Update query with no values did not fail!" );
@@ -275,4 +275,3 @@ class ezcQueryUpdateTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQueryUpdateTest' );
     }
 }
-?>

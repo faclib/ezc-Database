@@ -26,7 +26,7 @@ class ezcQueryExpressionTest extends ezcTestCase
 
     protected function setUp()
     {
-        
+
         try {
             $this->db = ezcDbInstance::get();
         }
@@ -59,7 +59,7 @@ class ezcQueryExpressionTest extends ezcTestCase
         {
             $this->db->exec( "ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS'" ); // set the timestamp format
         }
-       
+
         $this->db->exec( "INSERT INTO query_test VALUES ( 1, 'eZ systems', 'Norway', 20, '2007-05-03 11:54:17' )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 2, 'IBM', 'Norway', 500, null )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 3, 'eZ systems', 'Ukraine', 10, null )" );
@@ -286,13 +286,13 @@ class ezcQueryExpressionTest extends ezcTestCase
         $reference = "id IN ( 1, 2 )";
         $this->assertEquals( $reference, $this->e->in( 'id', 1, 2 ) );
     }
-    
+
     public function testInMultiString()
     {
         $reference = "id IN ( 'foo', 'bar' )";
         $this->assertEquals( $reference, $this->e->in( 'id', 'foo', 'bar' ) );
     }
-    
+
     public function testInMultiNumericString()
     {
         $reference = "id IN ( '1', '2' )";
@@ -325,7 +325,7 @@ class ezcQueryExpressionTest extends ezcTestCase
 
     public function testInStringQuoting()
     {
-        if ( $this->db->getName() == 'mysql' ) 
+        if ( $this->db->getName() == 'mysql' )
         {
             $reference = "id IN ( 'That\'s should be quoted correctly' )";
         }
@@ -412,11 +412,11 @@ class ezcQueryExpressionTest extends ezcTestCase
 
     public function testMd5()
     {
-        if ( $this->db->getName() == 'pgsql' ) 
+        if ( $this->db->getName() == 'pgsql' )
         {
             $pgSQL_version = $this->db->getAttribute( PDO::ATTR_SERVER_VERSION );
 
-            if ( $pgSQL_version >= 8 ) 
+            if ( $pgSQL_version >= 8 )
             {
                 $reference = 'MD5( name )';
             }
@@ -481,7 +481,7 @@ class ezcQueryExpressionTest extends ezcTestCase
             case 'ezcDbHandlerOracle':
                 $reference = "LOCALTIMESTAMP";
                 break;
-                
+
             case 'ezcDbHandlerMssql':
 
             default:
@@ -888,7 +888,7 @@ class ezcQueryExpressionTest extends ezcTestCase
                 ->groupBy( 'company' );
             $stmt = $this->q->prepare();
             $stmt->execute();
-            
+
             $tmpValue = $stmt->fetchColumn( 1 );
             $this->q->reset();
             $this->q->select( 0, $this->q->expr->md5( "'$tmpValue'" ) )  ;
@@ -1212,7 +1212,7 @@ class ezcQueryExpressionTest extends ezcTestCase
         $stmt->execute();
        $this->assertSame( 9, (int)$stmt->fetchColumn( 0 ) );
     }
-   
+
      /**
      * Repeat of the implementation tests, but now testing with alias functionality.
      */
@@ -1490,7 +1490,7 @@ class ezcQueryExpressionTest extends ezcTestCase
     {
         $this->q->setAliases( array( 'text' => 'company', 'empl' => 'employees' ) );
         $company = 'eZ systems';
-        
+
         if ( $this->db->getName() == 'mssql' ) // use a bit different test for MSSQL as it's MD5() implementation
                                                // requires text parameter but result of round() has type int.
         {
@@ -1500,7 +1500,7 @@ class ezcQueryExpressionTest extends ezcTestCase
                 ->groupBy( 'text' );
             $stmt = $this->q->prepare();
             $stmt->execute();
-            
+
             $this->q->reset();
             $tmpValue = $stmt->fetchColumn( 1 );
             $this->q->select( 0, $this->q->expr->md5( "'$tmpValue'" ) )  ;
@@ -1588,39 +1588,39 @@ class ezcQueryExpressionTest extends ezcTestCase
     public function testBug9159TableAndColumnAlias()
     {
         $reference = 'SELECT * FROM table1, table2 WHERE table1.column < table2.id';
-        
+
         $this->q->setAliases( array( 't_alias' => 'table1', 'c_alias' => 'column' ) );
-        
+
         $this->q->select( '*' )
         ->from( 't_alias', 'table2' )
         ->where( $this->q->expr->lt('t_alias.c_alias', 'table2.id' ) );
-        
+
         $this->assertEquals( $reference, $this->q->getQuery() );
     }
 
     public function testTableAlias()
     {
         $reference = 'SELECT * FROM table1, table2 WHERE table1.column < table2.id';
-        
+
         $this->q->setAliases( array( 't_alias' => 'table1' ) );
-        
+
         $this->q->select( '*' )
         ->from( 't_alias', 'table2' )
         ->where( $this->q->expr->lt('t_alias.column', 'table2.id' ) );
-        
+
         $this->assertEquals( $reference, $this->q->getQuery() );
     }
 
     public function testColumnAlias()
     {
         $reference = 'SELECT * FROM table1, table2 WHERE table1.column < table2.id';
-        
+
         $this->q->setAliases( array( 'c_alias' => 'column' ) );
-        
+
         $this->q->select( '*' )
         ->from( 'table1', 'table2' )
         ->where( $this->q->expr->lt('table1.c_alias', 'table2.id' ) );
-        
+
         $this->assertEquals( $reference, $this->q->getQuery() );
     }
 
@@ -1810,4 +1810,3 @@ class ezcQueryExpressionTest extends ezcTestCase
         $this->assertEquals( (int)date( 's' ), (int)$result, '', 1 ); // with delta 1
     }
 }
-?>

@@ -165,4 +165,3 @@ class ezcDatabaseFactoryTest extends ezcTestCase
          return new PHPUnit_Framework_TestSuite( "ezcDatabaseFactoryTest" );
     }
 }
-?>

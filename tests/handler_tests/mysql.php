@@ -27,5 +27,3 @@ class ezcDatabaseHandlerMysqlTest extends ezcDatabaseHandlerBaseTest
         parent::setUp();
     }
 }
-
-?>

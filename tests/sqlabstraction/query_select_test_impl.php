@@ -38,7 +38,7 @@ class ezcQuerySelectTestImpl extends ezcTestCase
         $this->e = $this->q->expr;
         $this->assertNotNull( $this->db, 'Database instance is not initialized.' );
 
-        try 
+        try
         {
             $this->db->exec( 'DROP TABLE query_test' );
             $this->db->exec( 'DROP TABLE query_test2' );
@@ -51,7 +51,7 @@ class ezcQuerySelectTestImpl extends ezcTestCase
         $this->db->exec( "INSERT INTO query_test VALUES ( 2, 'IBM', 'Norway', 500 )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 3, 'eZ systems', 'Ukraine', 10 )" );
         $this->db->exec( "INSERT INTO query_test VALUES ( 4, 'IBM', 'Germany', null )" );
-        
+
         // insert some data
         $this->db->exec( 'CREATE TABLE query_test2 ( id int, company VARCHAR(255), section VARCHAR(255), employees int NULL )' );
         $this->db->exec( "INSERT INTO query_test2 VALUES ( 1, 'eZ systems', 'Norway', 20 )" );
@@ -345,7 +345,7 @@ class ezcQuerySelectTestImpl extends ezcTestCase
         $this->q->select( $this->q->aliAs( 'id', 'other' ) )->from( 'query_test' );
         $stmt = $this->db->query( $this->q->getQuery() );
         $result = $stmt->fetchAll();
-        if ( !isset( $result[0]['other'] ) ) 
+        if ( !isset( $result[0]['other'] ) )
         {
             $this->fail( 'Fail test testAliAs' );
         }
@@ -357,7 +357,7 @@ class ezcQuerySelectTestImpl extends ezcTestCase
         $this->q->select( $this->q->aliAs( 'identifier', 'other' ) )->from( 'query_test' );
         $stmt = $this->db->query( $this->q->getQuery() );
         $result = $stmt->fetchAll();
-        if ( !isset( $result[0]['other'] ) ) 
+        if ( !isset( $result[0]['other'] ) )
         {
             $this->fail( 'Test fail testAliAsWithAlias' );
         }
@@ -456,4 +456,3 @@ class ezcQuerySelectTestImpl extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQuerySelectTestImpl' );
     }
 }
-?>

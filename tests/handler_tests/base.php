@@ -30,7 +30,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
         {
             $this->markTestSkipped( 'Needs working DB connection to run this tests.' );
         }
-        
+
         if ( $this->db === null )
         {
             $this->markTestSkipped( 'Cannot run bare handler base test.' );
@@ -86,7 +86,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
         }
 
         $id = $firstname = $lastname = null;
-        
+
         $insert = $this->db->createInsertQuery();
         $insert->insertInto( $this->db->quoteIdentifier( 'authors') )
                ->set( $this->db->quoteIdentifier( 'id' ), $insert->bindParam( $id ) )
@@ -107,9 +107,9 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
             $id = $row[0]; $firstname = $row[1]; $lastname = $row[2];
             $stmt->execute();
         }
-       
+
         $bookId = $authorId = null;
-        
+
         $insert = $this->db->createInsertQuery();
         $insert->insertInto( $this->db->quoteIdentifier( 'books_authors') )
                ->set( $this->db->quoteIdentifier( 'book_id' ), $insert->bindParam( $bookId ) )
@@ -130,9 +130,9 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
             $bookId = $row[0]; $authorId = $row[1];
             $stmt->execute();
         }
-        
+
         $bookId = $critique = null;
-        
+
         $insert = $this->db->createInsertQuery();
         $insert->insertInto( $this->db->quoteIdentifier( 'ownership') )
                ->set( $this->db->quoteIdentifier( 'book_id' ), $insert->bindParam( $bookId ) )
@@ -177,9 +177,9 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
 
         $results = $stmt->fetchAll();
         $stmt->closeCursor();
-        
+
         $expectedResults = array (
-          0 => 
+          0 =>
           array (
             'description' => 'Harry Potter episode 7, the final chapter.',
             0 => 'Harry Potter episode 7, the final chapter.',
@@ -188,7 +188,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
             'title' => 'Harry Potter and the Deathly Hallows',
             2 => 'Harry Potter and the Deathly Hallows',
           ),
-          1 => 
+          1 =>
           array (
             'description' => 'Harry Potter episode 5.',
             0 => 'Harry Potter episode 5.',
@@ -197,7 +197,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
             'title' => 'Harry Potter and the Order of the Phoenix',
             2 => 'Harry Potter and the Order of the Phoenix',
           ),
-          2 => 
+          2 =>
           array (
             'description' => 'Using Software Metrics to Characterize, Evaluate, and Improve the Design of Object-Oriented Systems.',
             0 => 'Using Software Metrics to Characterize, Evaluate, and Improve the Design of Object-Oriented Systems.',
@@ -206,7 +206,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
             'title' => 'Object-Oriented Metrics in Practice',
             2 => 'Object-Oriented Metrics in Practice',
           ),
-          3 => 
+          3 =>
           array (
             'description' => 'The classical source about information retrieval, second revision',
             0 => 'The classical source about information retrieval, second revision',
@@ -250,7 +250,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
         $results = $stmt->fetchAll();
 
         $expectedResults = array(
-              0 => 
+              0 =>
               array (
                 'description' => 'Using Software Metrics to Characterize, Evaluate, and Improve the Design of Object-Oriented Systems.',
                 0 => 'Using Software Metrics to Characterize, Evaluate, and Improve the Design of Object-Oriented Systems.',
@@ -259,7 +259,7 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
                 'title' => 'Object-Oriented Metrics in Practice',
                 2 => 'Object-Oriented Metrics in Practice',
               ),
-              1 => 
+              1 =>
               array (
                 'description' => 'The classical source about information retrieval, second revision',
                 0 => 'The classical source about information retrieval, second revision',
@@ -278,5 +278,3 @@ class ezcDatabaseHandlerBaseTest extends ezcTestCase
     }
 
 }
-
-?>

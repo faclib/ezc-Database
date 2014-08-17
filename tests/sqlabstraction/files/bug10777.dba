@@ -1,11 +1,11 @@
 <?php return array (
-  0 => 
+  0 =>
   array (
-    'bug10777' => 
+    'bug10777' =>
     ezcDbSchemaTable::__set_state(array(
-       'fields' => 
+       'fields' =>
       array (
-        'bar' => 
+        'bar' =>
         ezcDbSchemaField::__set_state(array(
            'type' => 'boolean',
            'length' => 0,
@@ -15,12 +15,12 @@
            'unsigned' => false,
         )),
       ),
-       'indexes' => 
+       'indexes' =>
       array (
       ),
     )),
   ),
-  1 => 
+  1 =>
   array (
   ),
-); ?>
+);
