@@ -1,4 +1,5 @@
 <?php
+
 require_once 'tutorial_autoload.php';
 
 class customLazyDatabaseConfiguration implements ezcBaseConfigurationInitializer
@@ -15,8 +16,8 @@ class customLazyDatabaseConfiguration implements ezcBaseConfigurationInitializer
     }
 }
 
-ezcBaseInit::setCallback( 
-    'ezcInitDatabaseInstance', 
+ezcBaseInit::setCallback(
+    'ezcInitDatabaseInstance',
     'customLazyDatabaseConfiguration'
 );
 
@@ -25,4 +26,3 @@ $db = ezcDbInstance::get();
 
 // Create and configure additional sqlite connection
 $sb = ezcDbInstance::get( 'sqlite' );
-?>

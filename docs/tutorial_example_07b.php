@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/tutorial_example_01.php';
+
 $db = ezcDbInstance::get();
 
 $q = $db->createSelectQuery();
@@ -12,7 +14,7 @@ $q->select( 'id' )
             ->rightJoin( 'table3', 'table2.id', 'table3.id' );
 
 $stmt = $q->prepare();
-$stmt->execute();
+echo $stmt->queryString;
+//$stmt->execute();
 
 
-?>

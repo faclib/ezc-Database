@@ -223,7 +223,7 @@ class ezcQueryInsertTest extends ezcTestCase
         {
             $db->exec( "CREATE SEQUENCE query_test_id_seq start with 1 increment by 1 nomaxvalue" );
         }
-        else if ( $db->getName() == 'pgsql' ) 
+        else if ( $db->getName() == 'pgsql' )
         {
             $db->exec( "CREATE SEQUENCE query_test_id_seq START 1" );
         }
@@ -246,7 +246,7 @@ class ezcQueryInsertTest extends ezcTestCase
             ->set( 'employees', 10 );
         $stmt = $q->prepare();
         $stmt->execute();
-        
+
         // check that it was actually correctly set
         $q = $db->createSelectQuery(); // get select query
         $q->select( '*' )->from( 'query_test' )->where( $q->expr->eq( 'id', 2 ) );
@@ -269,4 +269,3 @@ class ezcQueryInsertTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQueryInsertTest' );
     }
 }
-?>

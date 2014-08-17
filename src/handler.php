@@ -19,7 +19,7 @@
  * @package Database
  * @mainclass
  */
-abstract class ezcDbHandler extends PDO
+abstract class ezcDbHandler extends PDO implements ezcDbInterface
 {
     /**
      * Stores the transaction nesting level.
@@ -41,7 +41,7 @@ abstract class ezcDbHandler extends PDO
      * implementation, if different for a specific handler. In some cases the
      * quoting start and end characters differ (e.g. ODBC), but mostly they are
      * the same.
-     * 
+     *
      * @var string
      */
     protected $identifierQuoteChars = array(
@@ -92,6 +92,15 @@ abstract class ezcDbHandler extends PDO
     }
 
     /**
+     * @return PDO
+     */
+    public function getDb()
+    {
+        return $this;
+    }
+
+
+    /**
      * Returns the name of the handler.
      *
      * Returns handler name
@@ -99,7 +108,7 @@ abstract class ezcDbHandler extends PDO
      *
      * This method can be used to choose more optimal query
      * for the given Database.
-     * 
+     *
      * note This is commented out because it breaks with PHP 5.2.
      *
      * @return string
@@ -294,7 +303,7 @@ abstract class ezcDbHandler extends PDO
      * Returns the quoted version of an identifier to be used in an SQL query.
      * This method takes a given identifier and quotes it, so it can safely be
      * used in SQL queries.
-     * 
+     *
      * @param string $identifier The identifier to quote.
      * @return string The quoted identifier.
      */
@@ -302,9 +311,9 @@ abstract class ezcDbHandler extends PDO
     {
         if ( sizeof( $this->identifierQuoteChars ) === 2 )
         {
-            $identifier = 
+            $identifier =
                 $this->identifierQuoteChars["start"]
-                . str_replace( 
+                . str_replace(
                     $this->identifierQuoteChars["end"],
                     $this->identifierQuoteChars["end"].$this->identifierQuoteChars["end"],
                     $identifier
@@ -314,4 +323,3 @@ abstract class ezcDbHandler extends PDO
         return $identifier;
     }
 }
-?>

@@ -63,7 +63,7 @@ class ezcQuerySubSelect extends ezcQuerySelect
 
         if ( $this->expr === null )
         {
-            $this->expr = $outer->db->createExpression();
+            $this->expr = $outer->createExpression();
         }
     }
 
@@ -239,4 +239,3 @@ class ezcQuerySubSelect extends ezcQuerySelect
     }
 
 }
-?>

@@ -30,7 +30,7 @@ class ezcDatabaseHandlerOracleTest extends ezcDatabaseHandlerBaseTest
     protected function tearDownTables()
     {
         $sequences = $this->db->query( "SELECT sequence_name FROM user_sequences" )->fetchAll();
-        
+
         foreach ( $sequences as $sequenceDef )
         {
             $this->db->query( 'DROP SEQUENCE "' . $sequenceDef['sequence_name'] . '"' );
@@ -43,5 +43,3 @@ class ezcDatabaseHandlerOracleTest extends ezcDatabaseHandlerBaseTest
         }
     }
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/tutorial_example_01.php';
+
 $name = 'IBM';
 $q = new ezcQuerySelect( ezcDbInstance::get() );
 
@@ -25,6 +27,6 @@ $q->select('*')
   ->where( ' id >= 1 ', $q->expr->in( 'company', $q2 ) );
 
 $stmt = $q->prepare();
-$stmt->execute();
+echo $stmt->queryString;
+//$stmt->execute();
 
-?>

@@ -39,5 +39,3 @@ EOT
         parent::tearDown();
     }
 }
-
-?>

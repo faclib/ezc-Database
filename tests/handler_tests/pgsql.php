@@ -27,5 +27,3 @@ class ezcDatabaseHandlerPgsqlTest extends ezcDatabaseHandlerBaseTest
         parent::setUp();
     }
 }
-
-?>

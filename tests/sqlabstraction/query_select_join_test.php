@@ -65,7 +65,7 @@ class ezcQuerySelectJoinTestImpl extends ezcTestCase
         $this->db->exec( "INSERT INTO orders VALUES ( 1002, 'Table', 3 )" );
         $this->db->exec( "INSERT INTO orders VALUES ( 1003, 'CPU', 3 )" );
         $this->db->exec( "INSERT INTO orders VALUES ( 1004, 'Cat', 5 )" );
-        
+
         $this->db->exec( 'CREATE TABLE in_use ( id int, product_id int, employee_id int, amount int )' );
         $this->db->exec( "INSERT INTO in_use VALUES ( 2001, 1001, 1, 5 )" );
         $this->db->exec( "INSERT INTO in_use VALUES ( 2002, 1002, 3, 3 )" );
@@ -327,7 +327,7 @@ class ezcQuerySelectJoinTestImpl extends ezcTestCase
             $reference = 'SELECT employees.name, orders.product, in_use.amount '.
                              'FROM employees RIGHT JOIN orders ON employees.id = orders.employee_id '.
                                             'RIGHT JOIN in_use ON in_use.product_id = orders.id';
-                
+
         }
         $this->assertEquals( $reference, $this->q->getQuery() );
 
@@ -393,7 +393,7 @@ class ezcQuerySelectJoinTestImpl extends ezcTestCase
            $reference = 'SELECT employees.name, orders.product, in_use.amount '.
                             'FROM in_use LEFT JOIN orders ON in_use.product_id = orders.id '.
                                         'LEFT JOIN employees ON employees.id = orders.employee_id, '.
-                                 'employees LEFT JOIN in_use ON employees.id = orders.employee_id '. 
+                                 'employees LEFT JOIN in_use ON employees.id = orders.employee_id '.
                                         'LEFT JOIN orders ON in_use.product_id = orders.id '.
                              'WHERE in_use.amount > 2';
         }
@@ -427,4 +427,3 @@ class ezcQuerySelectJoinTestImpl extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQuerySelectJoinTestImpl' );
     }
 }
-?>

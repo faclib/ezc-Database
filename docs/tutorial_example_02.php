@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/tutorial_example_01.php';
+
 $db = ezcDbInstance::get();
 
 $rows = $db->query( 'SELECT * FROM quotes' );
@@ -9,4 +11,4 @@ foreach( $rows as $row )
 {
     print_r( $row );
 }
-?>
+

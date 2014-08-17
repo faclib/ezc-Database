@@ -72,7 +72,7 @@ class ezcQueryUpdate extends ezcQuery
      * @param PDO $db
      * @param array(string=>string) $aliases
      */
-    public function __construct( PDO $db, array $aliases = array() )
+    public function __construct( $db, array $aliases = array() )
     {
         parent::__construct( $db, $aliases );
     }
@@ -193,4 +193,3 @@ class ezcQueryUpdate extends ezcQuery
         return $query;
     }
 }
-?>

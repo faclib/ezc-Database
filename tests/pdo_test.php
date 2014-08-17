@@ -47,8 +47,8 @@ class ezcPdoTest extends ezcTestCase
 
 
     // This query probably fails when the PDO is linked to the wrong libmysql client.
-    // E.g. it must be linked against libmysqlclient12 and not libmysqlclient14 
-    // nor libmysqlclient15. 
+    // E.g. it must be linked against libmysqlclient12 and not libmysqlclient14
+    // nor libmysqlclient15.
     public function testIdNotFound()
     {
         $db = ezcDbInstance::get();
@@ -56,7 +56,7 @@ class ezcPdoTest extends ezcTestCase
         {
             return;  // no need to test it in RDBMS other than MySQL
         }
-        
+
         $q = $db->prepare("INSERT INTO query_test VALUES( 1, 'name', 'section', 22)" );
         $q->execute();
 
@@ -65,9 +65,9 @@ class ezcPdoTest extends ezcTestCase
         $stmt->execute();
         $row = $stmt->fetchAll( PDO::FETCH_ASSOC );
 
-        $this->assertEquals( "1", $row[0]["id"] ); 
-        $this->assertEquals( "name", $row[0]["company"] ); 
-        $this->assertEquals( "section", $row[0]["section"] ); 
+        $this->assertEquals( "1", $row[0]["id"] );
+        $this->assertEquals( "name", $row[0]["company"] );
+        $this->assertEquals( "section", $row[0]["section"] );
         $stmt->closeCursor();
     }
 
@@ -78,7 +78,7 @@ class ezcPdoTest extends ezcTestCase
     {
         $db = ezcDbInstance::get();
 
-        $q = $db->prepare("INSERT INTO query_test VALUES( '', 'name', 'section', 22)" ); 
+        $q = $db->prepare("INSERT INTO query_test VALUES( '', 'name', 'section', 22)" );
         $q->execute();
 
         $q->oasdfa(); // Wrong method call.
@@ -102,5 +102,3 @@ class ezcPdoTest extends ezcTestCase
          return new PHPUnit_Framework_TestSuite( "ezcPdoTest" );
     }
 }
-
-?>

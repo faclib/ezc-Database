@@ -120,7 +120,7 @@ class ezcQuerySubSelectTest extends ezcTestCase
         $this->q
             ->selectDistinct( '*' )
             ->from( 'table' )
-            ->where( 
+            ->where(
                 $this->q->expr->eq( 'id', $q2->getQuery() )
             );
 
@@ -137,7 +137,7 @@ class ezcQuerySubSelectTest extends ezcTestCase
         $this->q
             ->select( '*' )
             ->from( 'table' )
-            ->where( 
+            ->where(
                 $this->q->expr->in( 'id', $q2 )
             );
 
@@ -149,7 +149,7 @@ class ezcQuerySubSelectTest extends ezcTestCase
     {
         $val1 = '';
         $val2 = '';
-        
+
         $reference = '( SELECT column FROM table WHERE id = :ezcValue1 AND id2 = :ezcValue2 )';
         $q2 = $this->q->subSelect();
         $q2->select( 'column' )
@@ -188,7 +188,7 @@ class ezcQuerySubSelectTest extends ezcTestCase
         $q->where(
             $q->expr->in( 'question', $qQuestions )
         );
-        
+
         $this->assertEquals( "SELECT somecol FROM quiz WHERE question IN ( SELECT id FROM question WHERE quiz = :ezcValue1 )", $q->getQuery() );
     }
 
@@ -263,7 +263,7 @@ class ezcQuerySubSelectTest extends ezcTestCase
             $q2->select( 'main_id' )->from( 'sub' );
             $q2->limit(20,0);
 
-        $q->innerJoin( $q->alias( $q2, 'sub_items' ), 'sub_items.main_id', 'main.id' );   
+        $q->innerJoin( $q->alias( $q2, 'sub_items' ), 'sub_items.main_id', 'main.id' );
 
         $this->assertEquals( "SELECT id, name FROM main INNER JOIN ( SELECT main_id FROM sub LIMIT 20 OFFSET 0 ) AS sub_items ON sub_items.main_id = main.id", $q->getQuery() );
     }
@@ -273,4 +273,3 @@ class ezcQuerySubSelectTest extends ezcTestCase
         return new PHPUnit_Framework_TestSuite( 'ezcQuerySubSelectTest' );
     }
 }
-?>
