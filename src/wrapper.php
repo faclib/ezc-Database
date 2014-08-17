@@ -9,6 +9,18 @@
 /**
  * Определяет интерфейс для всех реализаций драйверов баз данных.
  *
+ * @method mixed  errorCode()
+ * @method array  errorInfo()
+ * @method int    exec( string $statement )
+ * @method mixed  getAttribute( int $attribute )
+ * @method array  getAvailableDrivers()
+ * @method bool   inTransaction()
+ * @method string lastInsertId( string $name = NULL )
+ * @method \PDOStatement        prepare ( string $statement, array $driver_options = array() )
+ * @method \PDOStatement|false  query( string $statement, int $fetch = null, mixed $params = null, array $args = null )
+ * @method string quote( string $string, int $parameter_type = \PDO::PARAM_STR )
+ * @method bool   setAttribute( int $attribute, mixed $value )
+ *
  * @author  Dmitriy Tyurin <fobia3d@gmail.com>
  * @package Database
  */
@@ -101,7 +113,7 @@ abstract class ezcDbWrapperHandler implements ezcDbInterface
         $db = new PDO( $dsn, $user, $pass, $driverOptions );
 
         $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-        $db->setAttribute( PDO::ATTR_CASE, PDO::CASE_NATURAL );
+        $db->setAttribute( PDO::ATTR_CASE,    PDO::CASE_NATURAL );
 
         return $db;
     }
